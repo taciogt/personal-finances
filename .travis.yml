@@ -7,3 +7,5 @@ install:
 
 script:
   - python -m flake8
+  - python -m mypy .
+  - python -m unittest discover core

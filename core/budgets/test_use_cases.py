@@ -11,3 +11,5 @@ class UseCasesTestCase(TestCase):
 
         default_budget = create_budget(amount=1000, repository=self.repository)
         self.assertEqual(default_budget.amount, 1000)
+
+        current_budget = self.repository.get_budget()
