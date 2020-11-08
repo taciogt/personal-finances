@@ -10,6 +10,8 @@ def set_budget(budget: Budget, repository: BudgetRepository):
 
 
 def create_budget(amount: Union[Decimal, int], repository: BudgetRepository) -> Budget:
+    if isinstance(amount, int):
+        amount = Decimal(amount)
     budget = Budget(amount=amount,
                     essentials=.55, education=.05, goals=.2, retirement=.1, loose=.1)
     return repository.create_budget(budget=budget)

@@ -10,7 +10,7 @@ class BudgetRepository(ABC):
         ...
 
     @abstractmethod
-    def set_budget(self):
+    def set_budget(self, budget: Budget) -> Budget:
         ...
 
     @abstractmethod
