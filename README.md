@@ -1,1 +1,2 @@
-# personal-finances
+# Personal Finances
+

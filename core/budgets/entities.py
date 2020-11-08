@@ -5,7 +5,7 @@ getcontext().prec = 2
 
 
 @dataclass
-class MonthlyBudget:
+class Budget:
     amount: Decimal
     essentials: float
     education: float
