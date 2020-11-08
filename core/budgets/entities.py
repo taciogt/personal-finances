@@ -1,7 +1,5 @@
 from dataclasses import dataclass
-from decimal import getcontext, Decimal
-
-getcontext().prec = 2
+from core.numbers import Decimal
 
 
 @dataclass

@@ -26,7 +26,8 @@ class BudgetRepositoryOnMemory(BudgetRepository):
         return self._budgets[-1]
 
     def set_budget(self, budget: Budget):
-        ...
+        self._budgets.append(budget)
+        return self._budgets[-1]
 
     def get_budget(self):
         return self._budgets[-1]
