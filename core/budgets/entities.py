@@ -12,4 +12,3 @@ class Budget:
     goals: float
     retirement: float
     loose: float
-
