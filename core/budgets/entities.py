@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from core.numbers import Decimal
+from core.utils.numbers import Decimal
 
 
 @dataclass
@@ -10,3 +10,7 @@ class Budget:
     goals: float
     retirement: float
     loose: float
+
+    @property
+    def total_percentage(self):
+        return self.essentials + self.education + self.goals + self.retirement + self.loose

@@ -1,0 +1,2 @@
+class InvalidBudgetError(Exception):
+    pass

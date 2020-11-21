@@ -2,7 +2,8 @@ from unittest import TestCase
 from .use_cases import create_budget, set_budget
 from .repositories import BudgetRepositoryOnMemory
 from .entities import Budget
-from core.numbers import Decimal
+from .exceptions import InvalidBudgetError
+from core.utils.numbers import Decimal
 
 
 class UseCasesTestCase(TestCase):
@@ -10,7 +11,6 @@ class UseCasesTestCase(TestCase):
         self.repository = BudgetRepositoryOnMemory()
 
     def test_creates_default_budget(self):
-
         created_budget = create_budget(amount=1000, repository=self.repository)
         self.assertEqual(created_budget.amount, 1000)
 
@@ -44,3 +44,16 @@ class UseCasesTestCase(TestCase):
         self.assertEqual(saved_budget.essentials + saved_budget.education +
                          saved_budget.goals + saved_budget.retirement +
                          saved_budget.loose, 1)
+
+    def test_set_budget_with_invalid_total(self):
+        budget = Budget(amount=Decimal(500),
+                        essentials=.4, education=.1, goals=.1, retirement=.1, loose=.15)
+        self.assertRaisesRegex(InvalidBudgetError, 'Total budget percentage should be 100%, but is 85%',
+                               set_budget,
+                               budget=budget, repository=self.repository)
+
+        budget = Budget(amount=Decimal(500),
+                        essentials=.4, education=.4, goals=.1, retirement=.1, loose=.15)
+        self.assertRaisesRegex(InvalidBudgetError, 'Total budget percentage should be 100%, but is 115%',
+                               set_budget,
+                               budget=budget, repository=self.repository)
