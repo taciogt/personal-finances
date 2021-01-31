@@ -2,3 +2,12 @@
 
 # Personal Finances
 
+## Dependencies
+
+* [Pipenv](https://pipenv.pypa.io/en/latest/)
+
+### Environment Set Up
+
+```shell
+pipenv sync --dev
+```
