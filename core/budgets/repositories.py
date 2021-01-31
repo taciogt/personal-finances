@@ -18,7 +18,7 @@ class BudgetRepository(ABC):
         ...
 
 
-class BudgetRepositoryOnMemory(BudgetRepository):
+class BudgetRepositoryInMemory(BudgetRepository):
     _budgets: List[Budget] = list()
 
     def create_budget(self, budget: Budget):

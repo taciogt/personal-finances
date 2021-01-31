@@ -1,6 +1,6 @@
 from unittest import TestCase
 from .use_cases import create_budget, set_budget
-from .repositories import BudgetRepositoryOnMemory
+from .repositories import BudgetRepositoryInMemory
 from .entities import Budget
 from .exceptions import InvalidBudgetError
 from core.utils.numbers import Decimal
@@ -8,7 +8,7 @@ from core.utils.numbers import Decimal
 
 class UseCasesTestCase(TestCase):
     def setUp(self) -> None:
-        self.repository = BudgetRepositoryOnMemory()
+        self.repository = BudgetRepositoryInMemory()
 
     def test_creates_default_budget(self):
         created_budget = create_budget(amount=1000, repository=self.repository)

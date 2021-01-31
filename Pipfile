@@ -3,9 +3,14 @@ name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
 
+[packages]
+django = "~=3.1"
+
 [dev-packages]
-flake8 = "3.8.4"
-mypy = "0.790"
+flake8 = "~=3.8"
+mypy = "~=0.790"
 
 [requires]
 python_version = "3.8"
+
+
