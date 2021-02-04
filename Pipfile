@@ -8,6 +8,7 @@ django = "~=3.1"
 
 [dev-packages]
 ansible-vault = "~=1.2"
+django-stubs = "~=1.7"
 flake8 = "~=3.8"
 mypy = "~=0.790"
 
