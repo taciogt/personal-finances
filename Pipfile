@@ -5,7 +5,6 @@ verify_ssl = true
 
 [packages]
 django = "~=3.1"
-djangorestframework = "~=3.12"
 
 [dev-packages]
 ansible-vault = "~=1.2"
