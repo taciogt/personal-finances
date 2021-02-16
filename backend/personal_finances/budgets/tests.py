@@ -1,13 +1,11 @@
 from django.test import TestCase, Client
 from django.urls import reverse
-import json
 
 
 class BudgetViewTests(TestCase):
     def test_hello_world(self):
         client = Client()
         url = reverse(viewname='budgets')
-        # response = client.put(url, data=json.dumps({'budget': 1}))
         response = client.put(url, data={'budget': {
             'amount': 100,
             'essentials': .55,
