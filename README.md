@@ -13,7 +13,20 @@
 pipenv sync --dev
 ```
 
+### Deployment
+
+```shell
+pipenv update # do not use dev dependencies
+pipenv shell
+cd backend/personal_finances
+zappa deploy/update dev
+```
+
+
 
 ## To Do's
 * https://pre-commit.com/
 * https://pypi.org/project/isort/
+* [Zappa](https://github.com/zappa/Zappa)
+  * https://romandc.com/zappa-django-guide/
+  * https://blog.logrocket.com/zappa-and-aws-lambda-for-serverless-django/

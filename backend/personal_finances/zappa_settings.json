@@ -1,0 +1,10 @@
+{
+    "dev": {
+        "django_settings": "personal_finances.settings",
+        "profile_name": "default",
+        "aws_region" : "us-east-1",
+        "project_name": "personal-finance",
+        "runtime": "python3.8",
+        "s3_bucket": "personal-finance-web-app-2"
+    }
+}

@@ -7,6 +7,9 @@ from core.budgets.entities import Budget
 
 
 class Budgets(View):
+    def get(self, request):
+        return JsonResponse({'ok': True})
+
     def put(self, request):
         budget = json.loads(request.body.decode())['budget']
         budget_set = set_budget(Budget(**budget))
