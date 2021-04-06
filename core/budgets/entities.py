@@ -12,5 +12,5 @@ class Budget:
     loose: float
 
     @property
-    def total_percentage(self):
+    def total_percentage(self) -> float:
         return self.essentials + self.education + self.goals + self.retirement + self.loose
