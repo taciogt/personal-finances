@@ -28,5 +28,5 @@ zappa deploy/update dev
 * https://pre-commit.com/
 * https://pypi.org/project/isort/
 * [Zappa](https://github.com/zappa/Zappa)
-  * https://romandc.com/zappa-django-guide/
+  * [Django Guide](https://romandc.com/zappa-django-guide/)
   * https://blog.logrocket.com/zappa-and-aws-lambda-for-serverless-django/
