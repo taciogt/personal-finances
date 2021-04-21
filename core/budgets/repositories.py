@@ -14,7 +14,7 @@ class BudgetRepository(ABC):
         ...
 
     @abstractmethod
-    def get_budget(self, budget: Budget) -> Budget:
+    def get_budget(self) -> Budget:
         ...
 
 

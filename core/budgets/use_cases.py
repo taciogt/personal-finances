@@ -17,3 +17,7 @@ def create_budget(amount: Union[Decimal, int], repository: BudgetRepository) -> 
     budget = Budget(amount=amount,
                     essentials=.55, education=.05, goals=.2, retirement=.1, loose=.1)
     return repository.create_budget(budget=budget)
+
+
+def get_budget(repository: BudgetRepository) -> Budget:
+    return repository.get_budget()

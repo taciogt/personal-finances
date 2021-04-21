@@ -1,5 +1,5 @@
 from unittest import TestCase
-from .use_cases import create_budget, set_budget
+from .use_cases import create_budget, set_budget, get_budget
 from .repositories import BudgetRepositoryInMemory
 from .entities import Budget
 from .exceptions import InvalidBudgetError
@@ -26,7 +26,7 @@ class UseCasesTestCase(TestCase):
                          saved_budget.goals + saved_budget.retirement +
                          saved_budget.loose, 1)
 
-    def test_sets_a_budget(self):
+    def test_set_a_budget(self):
         budget = Budget(amount=Decimal(500),
                         essentials=.5, education=.1, goals=.1, retirement=.1, loose=.2)
         budget_set = set_budget(budget=budget, repository=self.repository)
@@ -34,12 +34,14 @@ class UseCasesTestCase(TestCase):
         self.assertEqual(budget_set.amount, Decimal(500))
 
         saved_budget = self.repository.get_budget()
-        self.assertEqual(budget_set.amount, Decimal(500))
-        self.assertEqual(budget_set.essentials, .5)
-        self.assertEqual(budget_set.education, .1)
-        self.assertEqual(budget_set.goals, .1)
-        self.assertEqual(budget_set.retirement, .1)
-        self.assertEqual(budget_set.loose, .2)
+
+        for budget in (budget_set, saved_budget):
+            self.assertEqual(budget.amount, Decimal(500))
+            self.assertEqual(budget.essentials, .5)
+            self.assertEqual(budget.education, .1)
+            self.assertEqual(budget.goals, .1)
+            self.assertEqual(budget.retirement, .1)
+            self.assertEqual(budget.loose, .2)
 
         self.assertEqual(saved_budget.essentials + saved_budget.education +
                          saved_budget.goals + saved_budget.retirement +
@@ -57,3 +59,12 @@ class UseCasesTestCase(TestCase):
         self.assertRaisesRegex(InvalidBudgetError, 'Total budget percentage should be 100%, but is 115%',
                                set_budget,
                                budget=budget, repository=self.repository)
+
+    def test_get_a_budget(self):
+        new_budget = Budget(amount=Decimal(600),
+                            essentials=.6, education=.1, goals=.1, retirement=.1, loose=.2)
+        self.repository.set_budget(budget=new_budget)
+
+        returned_budget = get_budget(repository=self.repository)
+
+        self.assertEqual(returned_budget, new_budget)
