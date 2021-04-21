@@ -1,9 +1,17 @@
 from django.test import TestCase, Client
 from django.urls import reverse
+from http import HTTPStatus
+from budgets.services import repository
+from core.budgets.entities import Budget
+from core.utils.numbers import Decimal
 
 
 class BudgetViewTests(TestCase):
-    def test_hello_world(self):
+    def setUp(self) -> None:
+        super().setUp()
+        self.repository = repository
+
+    def test_put_budget(self):
         client = Client()
         url = reverse(viewname='budgets')
         response = client.put(url, data={'budget': {
@@ -14,8 +22,8 @@ class BudgetViewTests(TestCase):
             'retirement': .1,
             'loose': .1
         }}, content_type='application/json')
-        print(response.status_code)
-        print(response)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertEqual(response.json(), {
             'budget': {
                 "amount": 100,
@@ -24,5 +32,27 @@ class BudgetViewTests(TestCase):
                 "goals": 0.2,
                 "retirement": 0.1,
                 "loose": 0.1
+            }
+        })
+
+    def test_get_budget(self):
+        self.repository.create_budget(
+            budget=Budget(
+                amount=Decimal(1234),
+                essentials=.4, education=.1, goals=.1, retirement=.2, loose=.2))
+
+        client = Client()
+        url = reverse(viewname='budgets')
+        response = client.get(url)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertEqual(response.json(), {
+            'budget': {
+                "amount": '1234',
+                "essentials": .4,
+                "education": 0.1,
+                "goals": 0.1,
+                "retirement": 0.2,
+                "loose": 0.2
             }
         })
