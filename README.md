@@ -13,6 +13,8 @@
 pipenv sync --dev
 ```
 
+Frontend created with [Next + Typescript](https://github.com/vercel/next.js/tree/master/examples/with-typescript)
+
 ### Deployment
 
 ```shell
