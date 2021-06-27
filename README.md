@@ -25,10 +25,11 @@ zappa deploy/update dev
 ```
 
 
-
 ## To Do's
 * https://pre-commit.com/
 * https://pypi.org/project/isort/
 * [Zappa](https://github.com/zappa/Zappa)
   * [Django Guide](https://romandc.com/zappa-django-guide/)
   * https://blog.logrocket.com/zappa-and-aws-lambda-for-serverless-django/
+* React Tutorial:
+  * https://reactjs.org/docs/components-and-props.html   

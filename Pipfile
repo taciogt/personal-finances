@@ -5,6 +5,7 @@ verify_ssl = true
 
 [packages]
 django = "~=3.1"
+django-cors-headers = "==3.7.0"
 
 [dev-packages]
 ansible-vault = "~=1.2"

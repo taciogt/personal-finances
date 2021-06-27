@@ -30,6 +30,10 @@ DEBUG = True
 
 ALLOWED_HOSTS: List[str] = ['*']
 
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'https://teste.com'
+]
 
 # Application definition
 
@@ -41,12 +45,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'corsheaders',
+
     'budgets'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
+
     'django.middleware.common.CommonMiddleware',
     # TODO uncomment the next line and implement a proper security policy
     # 'django.middleware.csrf.CsrfViewMiddleware',
