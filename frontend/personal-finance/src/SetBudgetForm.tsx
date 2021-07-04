@@ -1,5 +1,5 @@
 import {ChangeEvent, FC, FormEvent, useState} from "react";
-import {FormControl, FormHelperText, Input, InputAdornment, InputLabel, TextField} from "@material-ui/core";
+import {FormControl, FormHelperText, Input, InputAdornment, InputLabel} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
@@ -15,6 +15,8 @@ class Budget {
     public readonly essentials?: number,
     public readonly education?: number,
     public readonly goals?: number,
+    public readonly retirement?: number,
+    public readonly loose?: number,
   ) {
   }
 }
@@ -32,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export const SetBudgetForm: FC = () => {
   const classes = useStyles()
 
-  const [budget, setBudget] = useState(new Budget())
+  const [budget, setBudget] = useState(new Budget(1000, .55, .05, .2, .1, .1))
 
   function changeBudgetAmountHandler(event: ChangeEvent<HTMLInputElement>) {
     setBudget(prevBudget => {
@@ -44,26 +46,6 @@ export const SetBudgetForm: FC = () => {
     })
   }
 
-  function changeBudgetEssentialsHandler(event: ChangeEvent<HTMLInputElement>) {
-    setBudget(prevBudget => {
-      const newEssentials = parseFloat(event.target.value)
-
-      return {
-        ...prevBudget,
-        essentials: newEssentials
-      }
-    })
-  }
-
-  function changeBudgetEducationHandler(event: ChangeEvent<HTMLInputElement>) {
-    setBudget(prevBudget => {
-      const newEducation = parseFloat(event.target.value)
-      return {
-        ...prevBudget,
-        education: newEducation
-      }
-    })
-  }
 
   function getChangeBudgetBowlHandler(bowlName: keyof Omit<Budget, 'amount'>) {
     return (event: ChangeEvent<HTMLInputElement>) => {
@@ -84,11 +66,6 @@ export const SetBudgetForm: FC = () => {
 
     const data = {
       budget: {
-        essentials: 0.55,
-        education: 0.05,
-        goals: 0.2,
-        retirement: 0.1,
-        loose: 0.1,
         ...budget
       }
     }
@@ -108,6 +85,7 @@ export const SetBudgetForm: FC = () => {
         <FormControl>
           <InputLabel htmlFor="total-amount-input">Valor total</InputLabel>
           <Input id="total-amount-input" aria-describedby="total-amount-helper-text" type="number"
+                 inputProps={{step: "0.01"}}
                  value={budget.amount} onChange={changeBudgetAmountHandler}
                  startAdornment={<InputAdornment position="start">R$</InputAdornment>}/>
           <FormHelperText id="total-amount-helper-text">Valor base para o orçamento</FormHelperText>
@@ -116,7 +94,7 @@ export const SetBudgetForm: FC = () => {
           <InputLabel htmlFor="essentials-input">Gastos Essenciais</InputLabel>
           <Input id="essentials-input" aria-describedby="essentials-helper-text" type="number"
                  inputProps={{step: "0.01"}}
-                 value={budget.essentials} onChange={changeBudgetEssentialsHandler}
+                 value={budget.essentials} onChange={getChangeBudgetBowlHandler('essentials')}
                  endAdornment={<InputAdornment position="end">%</InputAdornment>}/>
           <FormHelperText id="essentials-helper-text">Percentual previsto para gastos essenciais</FormHelperText>
         </FormControl>
@@ -124,7 +102,7 @@ export const SetBudgetForm: FC = () => {
           <InputLabel htmlFor="education-input">Gastos com Educação</InputLabel>
           <Input id="essentials-input" aria-describedby="essentials-helper-text" type="number"
                  inputProps={{step: "0.01"}}
-                 value={budget.education} onChange={changeBudgetEducationHandler}
+                 value={budget.education} onChange={getChangeBudgetBowlHandler('education')}
                  endAdornment={<InputAdornment position="end">%</InputAdornment>}/>
           <FormHelperText id="essentials-helper-text">Percentual previsto para gastos com educação</FormHelperText>
         </FormControl>
@@ -134,7 +112,23 @@ export const SetBudgetForm: FC = () => {
                  inputProps={{step: "0.01"}}
                  value={budget.goals} onChange={getChangeBudgetBowlHandler('goals')}
                  endAdornment={<InputAdornment position="end">%</InputAdornment>}/>
-          <FormHelperText id="essentials-helper-text">Percentual previsto para gastos com educação</FormHelperText>
+          <FormHelperText id="essentials-helper-text">Percentual previsto de investimento para metas</FormHelperText>
+        </FormControl>
+        <FormControl>
+          <InputLabel htmlFor="retirement-input">Investimentos para Aposentadoria</InputLabel>
+          <Input id="retirement-input" aria-describedby="retirement-helper-text" type="number"
+                 inputProps={{step: "0.01"}}
+                 value={budget.retirement} onChange={getChangeBudgetBowlHandler('retirement')}
+                 endAdornment={<InputAdornment position="end">%</InputAdornment>}/>
+          <FormHelperText id="essentials-helper-text">Percentual previsto de investimentos para aposentadoria</FormHelperText>
+        </FormControl>
+        <FormControl>
+          <InputLabel htmlFor="loose-input">Gastos Livres</InputLabel>
+          <Input id="loose-input" aria-describedby="loose-helper-text" type="number"
+                 inputProps={{step: "0.01"}}
+                 value={budget.loose} onChange={getChangeBudgetBowlHandler('loose')}
+                 endAdornment={<InputAdornment position="end">%</InputAdornment>}/>
+          <FormHelperText id="essentials-helper-text">Percentual previsto para gastos livres</FormHelperText>
         </FormControl>
         <div>
           <Button variant="contained" color="primary" type="submit">
