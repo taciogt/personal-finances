@@ -45,7 +45,8 @@ export const SetBudgetForm: FC = () => {
 
   function changeBudgetEssentialsHandler(event: ChangeEvent<HTMLInputElement>) {
     setBudget(prevBudget => {
-      const newEssentials = parseInt(event.target.value)
+      const newEssentials = parseFloat(event.target.value)
+
       return {
         ...prevBudget,
         essentials: newEssentials
@@ -55,7 +56,7 @@ export const SetBudgetForm: FC = () => {
 
   function changeBudgetEducationHandler(event: ChangeEvent<HTMLInputElement>) {
     setBudget(prevBudget => {
-      const newEducation = parseInt(event.target.value)
+      const newEducation = parseFloat(event.target.value)
       return {
         ...prevBudget,
         education: newEducation
@@ -69,14 +70,15 @@ export const SetBudgetForm: FC = () => {
     const data = {
       budget: {
         essentials: 0.55,
-        "education": 0.05,
-        "goals": 0.2,
-        "retirement": 0.1,
-        "loose": 0.1,
+        education: 0.05,
+        goals: 0.2,
+        retirement: 0.1,
+        loose: 0.1,
         ...budget
       }
     }
 
+    console.log("request body", data)
     apiClient.put('/budgets', data).then((response) => {
       console.log('api client')
       console.log(response.status)
@@ -98,14 +100,29 @@ export const SetBudgetForm: FC = () => {
         <FormControl>
           <InputLabel htmlFor="essentials-input">Gastos Essenciais</InputLabel>
           <Input id="essentials-input" aria-describedby="essentials-helper-text" type="number"
+                 inputProps={{step: "0.01"}}
                  value={budget.essentials} onChange={changeBudgetEssentialsHandler}
                  endAdornment={<InputAdornment position="end">%</InputAdornment>}/>
           <FormHelperText id="essentials-helper-text">Percentual previsto para gastos essenciais</FormHelperText>
         </FormControl>
-        <TextField label="Gastos com Educação" defaultValue={budget.education} margin="normal"
-                   helperText="Percentual previsto para gastos com educação"
-                   InputProps={
-                     {endAdornment: <InputAdornment position="end">%</InputAdornment>}}/>
+        {/*<TextField label="Gastos Essenciais" defaultValue={budget.essentials} margin="normal"*/}
+        {/*           helperText="Percentual previsto para gastos essenciaiseducação"*/}
+        {/*           onChange={changeBudgetEssentialsHandler}*/}
+        {/*           InputProps={*/}
+        {/*             {endAdornment: <InputAdornment position="end">%</InputAdornment>}}/>*/}
+        {/*<TextField label="Gastos com Educação" defaultValue={budget.education} margin="normal"*/}
+        {/*           helperText="Percentual previsto para gastos com educação"*/}
+        {/*           onChange={changeBudgetEducationHandler}*/}
+        {/*           InputProps={*/}
+        {/*             {endAdornment: <InputAdornment position="end">%</InputAdornment>}}/>*/}
+        <FormControl>
+          <InputLabel htmlFor="education-input">Gastos com Educação</InputLabel>
+          <Input id="essentials-input" aria-describedby="essentials-helper-text" type="number"
+                 inputProps={{step: "0.01"}}
+                 value={budget.education} onChange={changeBudgetEducationHandler}
+                 endAdornment={<InputAdornment position="end">%</InputAdornment>}/>
+          <FormHelperText id="essentials-helper-text">Percentual previsto para gastos com educação</FormHelperText>
+        </FormControl>
         <div>
           <Button variant="contained" color="primary" type="submit">
             Primary
