@@ -7,7 +7,7 @@ from .exceptions import InvalidBudgetError
 
 def set_budget(budget: Budget, repository: BudgetRepository) -> Budget:
     if budget.total_percentage != 100:
-        raise InvalidBudgetError(f'Total budget percentage should be 100%, but is {budget.total_percentage*100:.0f}%')
+        raise InvalidBudgetError(f'Total budget percentage should be 100%, but is {budget.total_percentage:.0f}%')
     return repository.set_budget(budget)
 
 

@@ -34,11 +34,11 @@ const useStyles = makeStyles((theme: Theme) =>
 export const SetBudgetForm: FC = () => {
   const classes = useStyles()
 
-  const [budget, setBudget] = useState(new Budget(1000, .55, .05, .2, .1, .1))
+  const [budget, setBudget] = useState(new Budget(1000, 55, 5, 20, 10, 10))
 
   function changeBudgetAmountHandler(event: ChangeEvent<HTMLInputElement>) {
     setBudget(prevBudget => {
-      const newAmount = parseInt(event.target.value)
+      const newAmount = parseFloat(event.target.value)
       return {
         ...prevBudget,
         amount: newAmount
@@ -50,7 +50,7 @@ export const SetBudgetForm: FC = () => {
   function getChangeBudgetBowlHandler(bowlName: keyof Omit<Budget, 'amount'>) {
     return (event: ChangeEvent<HTMLInputElement>) => {
       setBudget(prevBudget => {
-        const newBowlValue = parseFloat(event.target.value)
+        const newBowlValue = parseInt(event.target.value)
         const newBudget = {
           ...prevBudget,
         }
@@ -85,7 +85,7 @@ export const SetBudgetForm: FC = () => {
         <FormControl>
           <InputLabel htmlFor="total-amount-input">Valor total</InputLabel>
           <Input id="total-amount-input" aria-describedby="total-amount-helper-text" type="number"
-                 inputProps={{step: "0.01"}}
+                 inputProps={{step: ".01"}}
                  value={budget.amount} onChange={changeBudgetAmountHandler}
                  startAdornment={<InputAdornment position="start">R$</InputAdornment>}/>
           <FormHelperText id="total-amount-helper-text">Valor base para o orçamento</FormHelperText>
@@ -93,7 +93,7 @@ export const SetBudgetForm: FC = () => {
         <FormControl>
           <InputLabel htmlFor="essentials-input">Gastos Essenciais</InputLabel>
           <Input id="essentials-input" aria-describedby="essentials-helper-text" type="number"
-                 inputProps={{step: "0.01"}}
+                 inputProps={{step: "1"}}
                  value={budget.essentials} onChange={getChangeBudgetBowlHandler('essentials')}
                  endAdornment={<InputAdornment position="end">%</InputAdornment>}/>
           <FormHelperText id="essentials-helper-text">Percentual previsto para gastos essenciais</FormHelperText>
@@ -101,7 +101,7 @@ export const SetBudgetForm: FC = () => {
         <FormControl>
           <InputLabel htmlFor="education-input">Gastos com Educação</InputLabel>
           <Input id="essentials-input" aria-describedby="essentials-helper-text" type="number"
-                 inputProps={{step: "0.01"}}
+                 inputProps={{step: "1"}}
                  value={budget.education} onChange={getChangeBudgetBowlHandler('education')}
                  endAdornment={<InputAdornment position="end">%</InputAdornment>}/>
           <FormHelperText id="essentials-helper-text">Percentual previsto para gastos com educação</FormHelperText>
@@ -109,7 +109,7 @@ export const SetBudgetForm: FC = () => {
         <FormControl>
           <InputLabel htmlFor="goals-input">Investimentos para Metas</InputLabel>
           <Input id="goals-input" aria-describedby="goals-helper-text" type="number"
-                 inputProps={{step: "0.01"}}
+                 inputProps={{step: "1"}}
                  value={budget.goals} onChange={getChangeBudgetBowlHandler('goals')}
                  endAdornment={<InputAdornment position="end">%</InputAdornment>}/>
           <FormHelperText id="essentials-helper-text">Percentual previsto de investimento para metas</FormHelperText>
@@ -117,7 +117,7 @@ export const SetBudgetForm: FC = () => {
         <FormControl>
           <InputLabel htmlFor="retirement-input">Investimentos para Aposentadoria</InputLabel>
           <Input id="retirement-input" aria-describedby="retirement-helper-text" type="number"
-                 inputProps={{step: "0.01"}}
+                 inputProps={{step: "1"}}
                  value={budget.retirement} onChange={getChangeBudgetBowlHandler('retirement')}
                  endAdornment={<InputAdornment position="end">%</InputAdornment>}/>
           <FormHelperText id="essentials-helper-text">Percentual previsto de investimentos para
@@ -126,7 +126,7 @@ export const SetBudgetForm: FC = () => {
         <FormControl>
           <InputLabel htmlFor="loose-input">Gastos Livres</InputLabel>
           <Input id="loose-input" aria-describedby="loose-helper-text" type="number"
-                 inputProps={{step: "0.01"}}
+                 inputProps={{step: "1"}}
                  value={budget.loose} onChange={getChangeBudgetBowlHandler('loose')}
                  endAdornment={<InputAdornment position="end">%</InputAdornment>}/>
           <FormHelperText id="essentials-helper-text">Percentual previsto para gastos livres</FormHelperText>
