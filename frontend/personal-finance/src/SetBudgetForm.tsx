@@ -2,7 +2,7 @@ import {ChangeEvent, FC, FormEvent, useState} from "react";
 import {Card, FormControl, FormHelperText, Input, InputAdornment, InputLabel} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
-import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
+import {createStyles, makeStyles, styled, Theme} from "@material-ui/core/styles";
 
 const apiClient = axios.create({
   baseURL: 'http://localhost:8000/',
@@ -30,6 +30,10 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 )
+
+const StyledCard = styled(Card)({
+  padding: 10
+})
 
 export const SetBudgetForm: FC = () => {
   const classes = useStyles()
@@ -79,7 +83,7 @@ export const SetBudgetForm: FC = () => {
   }
 
   return (
-    <Card>
+    <StyledCard>
       <div>
         <p>Set budget form component</p>
         <form className={classes.root} onSubmit={submitHandler}>
@@ -139,6 +143,6 @@ export const SetBudgetForm: FC = () => {
           </div>
         </form>
       </div>
-    </Card>
+    </StyledCard>
   )
 }
