@@ -1,6 +1,8 @@
+from http import HTTPStatus
+
 from django.test import TestCase, Client
 from django.urls import reverse
-from http import HTTPStatus
+
 from budgets.services import repository
 from core.budgets.entities import Budget
 from core.utils.numbers import Decimal
@@ -16,22 +18,22 @@ class BudgetViewTests(TestCase):
         url = reverse(viewname='budgets')
         response = client.put(url, data={'budget': {
             'amount': 100,
-            'essentials': .55,
-            'education': .05,
-            'goals': .2,
-            'retirement': .1,
-            'loose': .1
+            'essentials': 55,
+            'education': 5,
+            'goals': 20,
+            'retirement': 10,
+            'loose': 10
         }}, content_type='application/json')
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertEqual(response.json(), {
             'budget': {
                 "amount": 100,
-                "essentials": 0.55,
-                "education": 0.05,
-                "goals": 0.2,
-                "retirement": 0.1,
-                "loose": 0.1
+                "essentials": 55,
+                "education": 5,
+                "goals": 20,
+                "retirement": 10,
+                "loose": 10
             }
         })
 
@@ -39,7 +41,7 @@ class BudgetViewTests(TestCase):
         self.repository.create_budget(
             budget=Budget(
                 amount=Decimal(1234),
-                essentials=.4, education=.1, goals=.1, retirement=.2, loose=.2))
+                essentials=40, education=10, goals=10, retirement=20, loose=20))
 
         client = Client()
         url = reverse(viewname='budgets')
@@ -49,10 +51,10 @@ class BudgetViewTests(TestCase):
         self.assertEqual(response.json(), {
             'budget': {
                 "amount": '1234',
-                "essentials": .4,
-                "education": 0.1,
-                "goals": 0.1,
-                "retirement": 0.2,
-                "loose": 0.2
+                "essentials": 40,
+                "education": 10,
+                "goals": 10,
+                "retirement": 20,
+                "loose": 20
             }
         })

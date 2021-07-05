@@ -120,7 +120,8 @@ export const SetBudgetForm: FC = () => {
                  inputProps={{step: "0.01"}}
                  value={budget.retirement} onChange={getChangeBudgetBowlHandler('retirement')}
                  endAdornment={<InputAdornment position="end">%</InputAdornment>}/>
-          <FormHelperText id="essentials-helper-text">Percentual previsto de investimentos para aposentadoria</FormHelperText>
+          <FormHelperText id="essentials-helper-text">Percentual previsto de investimentos para
+            aposentadoria</FormHelperText>
         </FormControl>
         <FormControl>
           <InputLabel htmlFor="loose-input">Gastos Livres</InputLabel>

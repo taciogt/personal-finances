@@ -16,19 +16,19 @@ class UseCasesTestCase(TestCase):
 
         saved_budget = self.repository.get_budget()
         self.assertEqual(saved_budget.amount, 1000)
-        self.assertEqual(saved_budget.essentials, .55)
-        self.assertEqual(saved_budget.education, .05)
-        self.assertEqual(saved_budget.goals, .2)
-        self.assertEqual(saved_budget.retirement, .1)
-        self.assertEqual(saved_budget.loose, .1)
+        self.assertEqual(saved_budget.essentials, 55)
+        self.assertEqual(saved_budget.education, 5)
+        self.assertEqual(saved_budget.goals, 20)
+        self.assertEqual(saved_budget.retirement, 10)
+        self.assertEqual(saved_budget.loose, 10)
 
         self.assertEqual(saved_budget.essentials + saved_budget.education +
                          saved_budget.goals + saved_budget.retirement +
-                         saved_budget.loose, 1)
+                         saved_budget.loose, 100)
 
     def test_set_a_budget(self):
         budget = Budget(amount=Decimal(500),
-                        essentials=.5, education=.1, goals=.1, retirement=.1, loose=.2)
+                        essentials=50, education=10, goals=10, retirement=10, loose=20)
         budget_set = set_budget(budget=budget, repository=self.repository)
 
         self.assertEqual(budget_set.amount, Decimal(500))
@@ -37,15 +37,15 @@ class UseCasesTestCase(TestCase):
 
         for budget in (budget_set, saved_budget):
             self.assertEqual(budget.amount, Decimal(500))
-            self.assertEqual(budget.essentials, .5)
-            self.assertEqual(budget.education, .1)
-            self.assertEqual(budget.goals, .1)
-            self.assertEqual(budget.retirement, .1)
-            self.assertEqual(budget.loose, .2)
+            self.assertEqual(budget.essentials, 50)
+            self.assertEqual(budget.education, 10)
+            self.assertEqual(budget.goals, 10)
+            self.assertEqual(budget.retirement, 10)
+            self.assertEqual(budget.loose, 20)
 
         self.assertEqual(saved_budget.essentials + saved_budget.education +
                          saved_budget.goals + saved_budget.retirement +
-                         saved_budget.loose, 1)
+                         saved_budget.loose, 100)
 
     def test_set_budget_with_invalid_total(self):
         budget = Budget(amount=Decimal(500),

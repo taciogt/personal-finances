@@ -6,7 +6,7 @@ from .exceptions import InvalidBudgetError
 
 
 def set_budget(budget: Budget, repository: BudgetRepository) -> Budget:
-    if budget.total_percentage != 1:
+    if budget.total_percentage != 100:
         raise InvalidBudgetError(f'Total budget percentage should be 100%, but is {budget.total_percentage*100:.0f}%')
     return repository.set_budget(budget)
 
@@ -15,7 +15,7 @@ def create_budget(amount: Union[Decimal, int], repository: BudgetRepository) -> 
     if isinstance(amount, int):
         amount = Decimal(amount)
     budget = Budget(amount=amount,
-                    essentials=.55, education=.05, goals=.2, retirement=.1, loose=.1)
+                    essentials=55, education=5, goals=20, retirement=10, loose=10)
     return repository.create_budget(budget=budget)
 
 
