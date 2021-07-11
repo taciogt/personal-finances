@@ -1,8 +1,10 @@
 import {ChangeEvent, FC, FormEvent, useState} from "react";
-import {Card, FormControl, FormHelperText, Input, InputAdornment, InputLabel} from "@material-ui/core";
+import {Card, Divider, FormControl, FormHelperText, Input, InputAdornment, InputLabel} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import {createStyles, makeStyles, styled, Theme} from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import {InputPercentageWithSlider} from "./components/InputPercentageWithSlider";
 
 const apiClient = axios.create({
   baseURL: 'http://localhost:8000/',
@@ -32,7 +34,14 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 const StyledCard = styled(Card)({
-  padding: 10
+  padding: 10,
+  maxWidth: '50%',
+  margin: "auto"
+})
+
+const StyledDivider = styled(Divider)({
+  marginTop: '1em',
+  marginBottom: '1em'
 })
 
 export const SetBudgetForm: FC = () => {
@@ -85,7 +94,8 @@ export const SetBudgetForm: FC = () => {
   return (
     <StyledCard>
       <div>
-        <p>Set budget form component</p>
+        <Typography style={{marginTop: '10px'}} variant='h5'>Orçamento mensal</Typography>
+        <StyledDivider />
         <form className={classes.root} onSubmit={submitHandler}>
           <FormControl>
             <InputLabel htmlFor="total-amount-input">Valor total</InputLabel>
@@ -136,6 +146,8 @@ export const SetBudgetForm: FC = () => {
                    endAdornment={<InputAdornment position="end">%</InputAdornment>}/>
             <FormHelperText id="essentials-helper-text">Percentual previsto para gastos livres</FormHelperText>
           </FormControl>
+          <Divider/>
+          <InputPercentageWithSlider/>
           <div>
             <Button variant="contained" color="primary" type="submit">
               Primary
