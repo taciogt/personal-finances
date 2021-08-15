@@ -1,10 +1,10 @@
-import {ChangeEvent, FC, FormEvent, useState} from "react";
-import {Card, Divider, FormControl, FormHelperText, Input, InputAdornment, InputLabel} from "@material-ui/core";
+import {ChangeEvent, FC, FormEvent, useCallback, useState} from "react";
+import {Box, Card, Divider, FormControl, FormHelperText, Input, InputAdornment, InputLabel} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import {createStyles, makeStyles, styled, Theme} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import {InputPercentageWithSlider} from "./components/InputPercentageWithSlider";
+import {PercentageSlider} from "./components/PercentageSlider";
 
 const apiClient = axios.create({
   baseURL: 'http://localhost:8000/',
@@ -13,12 +13,12 @@ const apiClient = axios.create({
 
 class Budget {
   constructor(
-    public readonly amount?: number,
-    public readonly essentials?: number,
-    public readonly education?: number,
-    public readonly goals?: number,
-    public readonly retirement?: number,
-    public readonly loose?: number,
+    public readonly amount: number,
+    public readonly essentials: number,
+    public readonly education: number,
+    public readonly goals: number,
+    public readonly retirement: number,
+    public readonly loose: number,
   ) {
   }
 }
@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme: Theme) =>
       '& .MuiFormControl-root': {
         margin: theme.spacing(1)
       }
+    },
+    percentageSlider: {
+      marginLeft: theme.spacing(20)
     }
   })
 )
@@ -43,6 +46,13 @@ const StyledDivider = styled(Divider)({
   marginTop: '1em',
   marginBottom: '1em'
 })
+
+const StyledBox = styled(Box)({
+  marginLeft: '3em',
+  marginRight: '3em',
+  marginBottom: '1em'
+})
+
 
 export const SetBudgetForm: FC = () => {
   const classes = useStyles()
@@ -71,7 +81,17 @@ export const SetBudgetForm: FC = () => {
         return newBudget
       })
     }
+  }
 
+  function useChangeBudgetBowlHandler(bowlName: keyof Omit<Budget, 'amount'>) {
+    return useCallback((newValue: number) => {
+      setBudget(prevBudget => {
+        return {
+          ...prevBudget,
+          [bowlName]: newValue
+        }
+      })
+    }, [bowlName])
   }
 
   function submitHandler(event: FormEvent) {
@@ -95,7 +115,7 @@ export const SetBudgetForm: FC = () => {
     <StyledCard>
       <div>
         <Typography style={{marginTop: '10px'}} variant='h5'>Orçamento mensal</Typography>
-        <StyledDivider />
+        <StyledDivider/>
         <form className={classes.root} onSubmit={submitHandler}>
           <FormControl>
             <InputLabel htmlFor="total-amount-input">Valor total</InputLabel>
@@ -105,6 +125,16 @@ export const SetBudgetForm: FC = () => {
                    startAdornment={<InputAdornment position="start">R$</InputAdornment>}/>
             <FormHelperText id="total-amount-helper-text">Valor base para o orçamento</FormHelperText>
           </FormControl>
+          <StyledDivider/>
+          <StyledBox>
+            <PercentageSlider title="Essenciais" value={budget.essentials}
+                              valueChangeHandler={useChangeBudgetBowlHandler('essentials')}/>
+          </StyledBox>
+          <StyledBox>
+            <PercentageSlider title="Educação" value={budget.education} valueChangeHandler={useChangeBudgetBowlHandler('education')}/>
+          </StyledBox>
+
+          <StyledDivider/>
           <FormControl>
             <InputLabel htmlFor="essentials-input">Gastos Essenciais</InputLabel>
             <Input id="essentials-input" aria-describedby="essentials-helper-text" type="number"
@@ -146,8 +176,11 @@ export const SetBudgetForm: FC = () => {
                    endAdornment={<InputAdornment position="end">%</InputAdornment>}/>
             <FormHelperText id="essentials-helper-text">Percentual previsto para gastos livres</FormHelperText>
           </FormControl>
-          <Divider/>
-          <InputPercentageWithSlider/>
+
+
+          {/*<StyledDivider/>*/}
+          {/*<PercentageSlider title="demo"/>*/}
+
           <div>
             <Button variant="contained" color="primary" type="submit">
               Primary
