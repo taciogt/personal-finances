@@ -41,8 +41,7 @@ export const PercentageSlider: FC<tPercentageSliderProps> = ({title, value, valu
   return (
     <div className={classes.root}>
       <Typography variant='subtitle2' align='left' display='block'>{title}</Typography>
-      <Grid container spacing={2} alignItems="flex-end" justify="space-around"
-      >
+      <Grid container spacing={2} alignItems="flex-end" justify="space-around">
         <Grid>
           <RawNumberFormatCustom
             setValue={setInputValue}

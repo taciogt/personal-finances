@@ -1,5 +1,15 @@
 import {ChangeEvent, FC, FormEvent, useCallback, useState} from "react";
-import {Box, Card, Divider, FormControl, FormHelperText, Input, InputAdornment, InputLabel} from "@material-ui/core";
+import {
+  Box,
+  Card,
+  Divider,
+  FormControl,
+  FormHelperText,
+  Grid,
+  Input,
+  InputAdornment,
+  InputLabel
+} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import {createStyles, makeStyles, styled, Theme} from "@material-ui/core/styles";
@@ -21,6 +31,18 @@ class Budget {
     public readonly loose: number,
   ) {
   }
+
+
+}
+
+type BudgetBowls = keyof Pick<Budget, 'essentials' | 'education' | 'goals' | 'retirement' | 'loose'>
+
+function getBudgetBowlAmount(budget: Budget, bowlName: BudgetBowls) {
+  return budget[bowlName] * budget.amount
+}
+
+function centsToBRL(v: number) {
+  return `R$ ${(v / 100).toLocaleString('pt-Br', {minimumFractionDigits: 2})}`
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -70,7 +92,7 @@ export const SetBudgetForm: FC = () => {
   }
 
 
-  function getChangeBudgetBowlHandler(bowlName: keyof Omit<Budget, 'amount'>) {
+  function getChangeBudgetBowlHandler(bowlName: BudgetBowls) {
     return (event: ChangeEvent<HTMLInputElement>) => {
       setBudget(prevBudget => {
         const newBowlValue = parseInt(event.target.value)
@@ -127,11 +149,33 @@ export const SetBudgetForm: FC = () => {
           </FormControl>
           <StyledDivider/>
           <StyledBox>
-            <PercentageSlider title="Essenciais" value={budget.essentials}
-                              valueChangeHandler={useChangeBudgetBowlHandler('essentials')}/>
+
+
+            <Grid container spacing={2} alignItems="flex-end" justify="space-around">
+              <Grid item xs={8}>
+                <PercentageSlider title="Essenciais" value={budget.essentials}
+                                  valueChangeHandler={useChangeBudgetBowlHandler('essentials')}/>
+              </Grid>
+              <Grid item xs={4}>
+                <Typography variant={'body1'}>{centsToBRL(getBudgetBowlAmount(budget, 'essentials'))}</Typography>
+              </Grid>
+            </Grid>
           </StyledBox>
           <StyledBox>
-            <PercentageSlider title="Educação" value={budget.education} valueChangeHandler={useChangeBudgetBowlHandler('education')}/>
+            <PercentageSlider title="Educação" value={budget.education}
+                              valueChangeHandler={useChangeBudgetBowlHandler('education')}/>
+          </StyledBox>
+          <StyledBox>
+            <PercentageSlider title="Metas" value={budget.goals}
+                              valueChangeHandler={useChangeBudgetBowlHandler('goals')}/>
+          </StyledBox>
+          <StyledBox>
+            <PercentageSlider title="Aposentadoria" value={budget.retirement}
+                              valueChangeHandler={useChangeBudgetBowlHandler('retirement')}/>
+          </StyledBox>
+          <StyledBox>
+            <PercentageSlider title="Livre" value={budget.loose}
+                              valueChangeHandler={useChangeBudgetBowlHandler('loose')}/>
           </StyledBox>
 
           <StyledDivider/>
