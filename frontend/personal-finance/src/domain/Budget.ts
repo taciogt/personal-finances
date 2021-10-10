@@ -15,3 +15,7 @@ export type BudgetBowls = keyof Pick<Budget, 'essentials' | 'education' | 'goals
 export function centsToBRL(v: number) {
   return `R$ ${(v / 100).toLocaleString('pt-Br', {minimumFractionDigits: 2})}`
 }
+
+export function getBudgetBowlAmount(budget: Budget, bowlName: BudgetBowls) {
+    return budget[bowlName] * budget.amount
+}
