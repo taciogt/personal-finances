@@ -15,34 +15,16 @@ import axios from "axios";
 import {createStyles, makeStyles, styled, Theme} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import {PercentageSlider} from "./components/PercentageSlider";
+import {Budget, BudgetBowls, centsToBRL} from "./domain/Budget";
+import {BowlSetter} from "./components/BowlSetter";
 
 const apiClient = axios.create({
   baseURL: 'http://localhost:8000/',
   headers: {'Content-Type': 'application/json'}
 });
 
-class Budget {
-  constructor(
-    public readonly amount: number,
-    public readonly essentials: number,
-    public readonly education: number,
-    public readonly goals: number,
-    public readonly retirement: number,
-    public readonly loose: number,
-  ) {
-  }
-
-
-}
-
-type BudgetBowls = keyof Pick<Budget, 'essentials' | 'education' | 'goals' | 'retirement' | 'loose'>
-
 function getBudgetBowlAmount(budget: Budget, bowlName: BudgetBowls) {
   return budget[bowlName] * budget.amount
-}
-
-function centsToBRL(v: number) {
-  return `R$ ${(v / 100).toLocaleString('pt-Br', {minimumFractionDigits: 2})}`
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -149,8 +131,6 @@ export const SetBudgetForm: FC = () => {
           </FormControl>
           <StyledDivider/>
           <StyledBox>
-
-
             <Grid container spacing={2} alignItems="flex-end" justify="space-around">
               <Grid item xs={8}>
                 <PercentageSlider title="Essenciais" value={budget.essentials}
@@ -160,6 +140,9 @@ export const SetBudgetForm: FC = () => {
                 <Typography variant={'body1'}>{centsToBRL(getBudgetBowlAmount(budget, 'essentials'))}</Typography>
               </Grid>
             </Grid>
+          </StyledBox>
+          <StyledBox>
+            <BowlSetter title={'Essenciais'} value={budget.essentials} bowlName={'essentials'} valueChangeHandler={useChangeBudgetBowlHandler('essentials')} />
           </StyledBox>
           <StyledBox>
             <PercentageSlider title="Educação" value={budget.education}
