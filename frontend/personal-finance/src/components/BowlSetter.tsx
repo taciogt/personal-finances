@@ -4,10 +4,11 @@ import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import {RawNumberFormatCustom} from "./RawNumberFormatCustom";
 import {PercentageSlider} from "./PercentageSlider";
-import {BudgetBowls, centsToBRL} from "../domain/Budget";
+import {Budget, BudgetBowls, centsToBRL} from "../domain/Budget";
 
 interface bowlSetterProps {
   title: string
+  budget: Budget
   value: number
   bowlName: BudgetBowls,
   valueChangeHandler: (v: number) => void
@@ -15,7 +16,7 @@ interface bowlSetterProps {
 }
 
 
-export const BowlSetter: FC<bowlSetterProps> = ({title, value, valueChangeHandler}) => {
+export const BowlSetter: FC<bowlSetterProps> = ({title, budget, value, valueChangeHandler}) => {
   // const [inputValue, setInputValue] = useState(value)
   //
   // useEffect(() => {
@@ -35,7 +36,7 @@ export const BowlSetter: FC<bowlSetterProps> = ({title, value, valueChangeHandle
                           valueChangeHandler={valueChangeHandler}/>
       </Grid>
       <Grid item xs={4}>
-        <Typography variant={'body1'}>{centsToBRL(value)}</Typography>
+        <Typography variant={'body1'}>{centsToBRL(value * budget.amount)}</Typography>
       </Grid>
     </Grid>
   </>

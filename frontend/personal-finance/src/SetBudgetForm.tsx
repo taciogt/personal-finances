@@ -142,7 +142,7 @@ export const SetBudgetForm: FC = () => {
             </Grid>
           </StyledBox>
           <StyledBox>
-            <BowlSetter title={'Essenciais'} value={budget.essentials} bowlName={'essentials'} valueChangeHandler={useChangeBudgetBowlHandler('essentials')} />
+            <BowlSetter title={'Essenciais'} budget={budget} value={budget.essentials} bowlName={'essentials'} valueChangeHandler={useChangeBudgetBowlHandler('essentials')} />
           </StyledBox>
           <StyledBox>
             <PercentageSlider title="Educação" value={budget.education}
