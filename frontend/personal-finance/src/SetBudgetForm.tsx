@@ -1,7 +1,8 @@
 import {ChangeEvent, FC, FormEvent, useCallback, useEffect, useState} from "react";
 import {
   Box,
-  Card, CircularProgress,
+  Card,
+  CircularProgress,
   Divider,
   FormControl,
   FormHelperText,
@@ -13,10 +14,10 @@ import Button from "@material-ui/core/Button";
 import axios from "axios";
 import {createStyles, makeStyles, styled, Theme} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import {Budget, BudgetBowls} from "./domain/Budget";
+import {Budget} from "./domain/Budget";
 import {BowlSetter} from "./components/BowlSetter";
-import {green} from "@material-ui/core/colors";
-import CheckIcon from '@material-ui/icons/Check';
+import {green, red} from "@material-ui/core/colors";
+import {DoneOutline, Error} from "@material-ui/icons";
 
 const apiClient = axios.create({
   baseURL: 'http://localhost:8000/',
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(1),
       position: 'relative'
     },
-    buttonProgress: {
+    buttonFeedbackIcon: {
       color: green[500],
       // color: '#FFD49F',
       // color: '#0074FF',
@@ -47,10 +48,8 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: -12,
       marginLeft: -12,
     },
-    checkIcon: {
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
+    errorIcon:{
+      color: red[500]
     },
     btnText: {
       color: 'transparent'
@@ -86,6 +85,7 @@ export const SetBudgetForm: FC = () => {
   const [budget, setBudget] = useState(new Budget(1000, 55, 5, 20, 10, 10))
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     console.log('Budget:', budget)
@@ -127,13 +127,18 @@ export const SetBudgetForm: FC = () => {
       setTimeout(() => {
         setSuccess(false)
       }, 3000)
-    }).finally(() => {
+    }, () => {
+      setError(true)
+      setTimeout(() => {
+        setError(false)
+      }, 3000)
+      }).finally(() => {
         setLoading(false)
       }
     )
   }
 
-  const saveButtonTextVars = success ? hideText : defaultText
+  const saveButtonTextVars = success || error ? hideText : defaultText
 
   return (
     <StyledCard>
@@ -172,11 +177,12 @@ export const SetBudgetForm: FC = () => {
           </StyledBox>
           <StyledDivider/>
           <div className={classes.wrapper}>
-            <Button variant="contained" color="primary" type="submit" disabled={loading || success}>
+            <Button variant="contained" color="primary" type="submit" disabled={loading || success || error}>
               <div style={saveButtonTextVars}>Salvar</div>
             </Button>
-            {success && <CheckIcon className={classes.buttonProgress}/>}
-            {loading && <CircularProgress size={24} className={classes.buttonProgress}/>}
+            {success && <DoneOutline className={classes.buttonFeedbackIcon}/>}
+            {error && <Error className={`${classes.buttonFeedbackIcon} ${classes.errorIcon}`}/>}
+            {loading && <CircularProgress size={24} className={classes.buttonFeedbackIcon}/>}
           </div>
         </form>
       </div>
