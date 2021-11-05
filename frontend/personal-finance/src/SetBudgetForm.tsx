@@ -1,4 +1,3 @@
-import {ChangeEvent, FC, FormEvent, useCallback, useEffect, useState} from "react";
 import {
   Box,
   Card,
@@ -9,20 +8,21 @@ import {
   Input,
   InputAdornment,
   InputLabel
-} from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import axios from "axios";
-import {createStyles, makeStyles, styled, Theme} from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import {Budget} from "./domain/Budget";
-import {BowlSetter} from "./components/BowlSetter";
-import {green, red} from "@material-ui/core/colors";
-import {DoneOutline, Error} from "@material-ui/icons";
+} from '@material-ui/core'
+import Button from '@material-ui/core/Button'
+import { green, red } from '@material-ui/core/colors'
+import { createStyles, makeStyles, styled, Theme } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
+import { DoneOutline, Error } from '@material-ui/icons'
+import axios from 'axios'
+import { ChangeEvent, FC, FormEvent, useCallback, useEffect, useState } from 'react'
+import { BowlSetter } from './components/BowlSetter'
+import { Budget } from './domain/Budget'
 
 const apiClient = axios.create({
   baseURL: 'http://localhost:8000/',
   headers: {'Content-Type': 'application/json'}
-});
+})
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,9 +51,6 @@ const useStyles = makeStyles((theme: Theme) =>
     errorIcon:{
       color: red[500]
     },
-    btnText: {
-      color: 'transparent'
-    }
   })
 )
 
@@ -65,7 +62,7 @@ const hideText = {
 const StyledCard = styled(Card)({
   padding: 10,
   maxWidth: '50%',
-  margin: "auto"
+  margin: 'auto'
 })
 
 const StyledDivider = styled(Divider)({
@@ -132,9 +129,9 @@ export const SetBudgetForm: FC = () => {
       setTimeout(() => {
         setError(false)
       }, 3000)
-      }).finally(() => {
-        setLoading(false)
-      }
+    }).finally(() => {
+      setLoading(false)
+    }
     )
   }
 
@@ -149,31 +146,31 @@ export const SetBudgetForm: FC = () => {
           <FormControl>
             <InputLabel htmlFor="total-amount-input">Valor total</InputLabel>
             <Input id="total-amount-input" aria-describedby="total-amount-helper-text" type="number"
-                   inputProps={{step: ".01"}}
-                   value={budget.amount} onChange={changeBudgetAmountHandler}
-                   startAdornment={<InputAdornment position="start">R$</InputAdornment>}/>
+              inputProps={{step: '.01'}}
+              value={budget.amount} onChange={changeBudgetAmountHandler}
+              startAdornment={<InputAdornment position="start">R$</InputAdornment>}/>
             <FormHelperText id="total-amount-helper-text">Valor base para o orçamento</FormHelperText>
           </FormControl>
           <StyledDivider/>
           <StyledBox>
             <BowlSetter title={'Essenciais'} budget={budget} bowlName={'essentials'}
-                        valueChangeHandler={useChangeBudgetBowlHandler('essentials')}/>
+              valueChangeHandler={useChangeBudgetBowlHandler('essentials')}/>
           </StyledBox>
           <StyledBox>
             <BowlSetter title={'Educação'} budget={budget} bowlName={'education'}
-                        valueChangeHandler={useChangeBudgetBowlHandler('education')}/>
+              valueChangeHandler={useChangeBudgetBowlHandler('education')}/>
           </StyledBox>
           <StyledBox>
             <BowlSetter title={'Metas'} budget={budget} bowlName={'goals'}
-                        valueChangeHandler={useChangeBudgetBowlHandler('goals')}/>
+              valueChangeHandler={useChangeBudgetBowlHandler('goals')}/>
           </StyledBox>
           <StyledBox>
             <BowlSetter title={'Aposentadoria'} budget={budget} bowlName={'retirement'}
-                        valueChangeHandler={useChangeBudgetBowlHandler('retirement')}/>
+              valueChangeHandler={useChangeBudgetBowlHandler('retirement')}/>
           </StyledBox>
           <StyledBox>
             <BowlSetter title={'Livre'} budget={budget} bowlName={'loose'}
-                        valueChangeHandler={useChangeBudgetBowlHandler('loose')}/>
+              valueChangeHandler={useChangeBudgetBowlHandler('loose')}/>
           </StyledBox>
           <StyledDivider/>
           <div className={classes.wrapper}>
