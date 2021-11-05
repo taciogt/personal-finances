@@ -58,8 +58,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const defaultText = {
-}
+const defaultText = {}
 const hideText = {
   'color': 'transparent'
 }
@@ -102,19 +101,6 @@ export const SetBudgetForm: FC = () => {
     })
   }
 
-  function getChangeBudgetBowlHandler(bowlName: BudgetBowls) {
-    return (event: ChangeEvent<HTMLInputElement>) => {
-      setBudget(prevBudget => {
-        const newBowlValue = parseInt(event.target.value)
-        const newBudget = {
-          ...prevBudget,
-        }
-        newBudget[bowlName] = newBowlValue
-        return newBudget
-      })
-    }
-  }
-
   function useChangeBudgetBowlHandler(bowlName: keyof Omit<Budget, 'amount'>) {
     return useCallback((newValue: number) => {
       setBudget(prevBudget => {
@@ -136,15 +122,11 @@ export const SetBudgetForm: FC = () => {
       }
     }
 
-    console.log("request body", data)
     apiClient.put('/budgets', data).then((response) => {
-      console.log('api client')
-      console.log(response.status)
-      console.log(response.data)
       setSuccess(true)
-      // setTimeout(() => {
-      //   setSuccess(false)
-      // }, 5000)
+      setTimeout(() => {
+        setSuccess(false)
+      }, 3000)
     }).finally(() => {
         setLoading(false)
       }
@@ -152,7 +134,6 @@ export const SetBudgetForm: FC = () => {
   }
 
   const saveButtonTextVars = success ? hideText : defaultText
-  console.log('saveButtonTextVars', saveButtonTextVars)
 
   return (
     <StyledCard>
@@ -192,13 +173,10 @@ export const SetBudgetForm: FC = () => {
           <StyledDivider/>
           <div className={classes.wrapper}>
             <Button variant="contained" color="primary" type="submit" disabled={loading || success}>
-              {/*Salvar*/}
-              {/*{!success && <div >Salvar</div>}*/}
               <div style={saveButtonTextVars}>Salvar</div>
             </Button>
-            {success && <CheckIcon className={classes.buttonProgress} />}
+            {success && <CheckIcon className={classes.buttonProgress}/>}
             {loading && <CircularProgress size={24} className={classes.buttonProgress}/>}
-            {/*{success && <CheckIcon className={classes.buttonProgress} />}*/}
           </div>
         </form>
       </div>
