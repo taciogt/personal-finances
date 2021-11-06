@@ -1,3 +1,6 @@
+build:
+	docker-compose build
+
 run-backend:
 	docker-compose up --build
 
