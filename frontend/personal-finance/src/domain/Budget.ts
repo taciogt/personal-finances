@@ -17,5 +17,5 @@ export function centsToBRL(v: number) {
 }
 
 export function getBudgetBowlAmount(budget: Budget, bowlName: BudgetBowls) {
-    return budget[bowlName] * budget.amount
+  return budget[bowlName] * budget.amount
 }

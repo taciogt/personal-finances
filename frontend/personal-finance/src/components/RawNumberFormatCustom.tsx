@@ -1,7 +1,7 @@
-import {styled} from "@material-ui/core/styles";
-import NumberFormat from "react-number-format";
-import {ChangeEventHandler, FC, FocusEventHandler, KeyboardEventHandler} from "react";
-import {TextField} from "@material-ui/core";
+import { TextField } from '@material-ui/core'
+import { styled } from '@material-ui/core/styles'
+import React, { ChangeEventHandler, FC, FocusEventHandler, KeyboardEventHandler } from 'react'
+import NumberFormat from 'react-number-format'
 
 const StyledNumberFormat = styled(NumberFormat)({
   width: '3em'
@@ -23,18 +23,18 @@ export const RawNumberFormatCustom: FC<RawNumberFormatCustomProps> = ({value, se
   const onBlurHandler: FocusEventHandler<HTMLInputElement> = (event) => {
     const newValue = +event.target.value.replace(suffix, '')
     if (newValue < 10) {
-      setValue(0);
+      setValue(0)
     } else if (newValue > 90) {
-      setValue(100);
+      setValue(100)
     }
 
   }
 
   const keyPressHandler: KeyboardEventHandler<HTMLInputElement> = (event) => {
-    if (event.key === "ArrowUp") {
+    if (event.key === 'ArrowUp') {
       setValue(value + 1)
     }
-    if (event.key === "ArrowDown") {
+    if (event.key === 'ArrowDown') {
       setValue(value - 1)
     }
   }
@@ -48,5 +48,5 @@ export const RawNumberFormatCustom: FC<RawNumberFormatCustomProps> = ({value, se
       customInput={TextField}
       suffix={suffix}
     />
-  );
+  )
 }

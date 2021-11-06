@@ -1,8 +1,8 @@
-import {ChangeEvent, FC, useEffect, useState} from "react";
-import {Grid, Slider} from "@material-ui/core";
-import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import {RawNumberFormatCustom} from "./RawNumberFormatCustom";
+import { Grid, Slider } from '@material-ui/core'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
+import React, { ChangeEvent, FC, useEffect, useState } from 'react'
+import { RawNumberFormatCustom } from './RawNumberFormatCustom'
 
 interface tPercentageSliderProps {
   title: string
@@ -32,7 +32,7 @@ export const PercentageSlider: FC<tPercentageSliderProps> = ({title, value, valu
     valueChangeHandler(inputValue)
   }, [inputValue, valueChangeHandler])
 
-  function slideChangeHandler(event: ChangeEvent<{}>, newValue: number | number[]) {
+  function slideChangeHandler(event: ChangeEvent<unknown>, newValue: number | number[]) {
     if (!Array.isArray(newValue)) {
       setInputValue(newValue)
     }

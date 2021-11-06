@@ -1,9 +1,9 @@
-import React from 'react';
-import './App.css';
-import Menu from "./Menu";
-import {Container} from "@material-ui/core";
-import {SetBudgetForm} from "./SetBudgetForm";
-import {styled} from "@material-ui/core/styles";
+import { Container } from '@material-ui/core'
+import { styled } from '@material-ui/core/styles'
+import React from 'react'
+import './App.css'
+import Menu from './Menu'
+import { SetBudgetForm } from './SetBudgetForm'
 
 // const useStyles = makeStyles({
 //   root: {
@@ -26,7 +26,7 @@ function App() {
         <SetBudgetForm/>
       </StyledContainer>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
