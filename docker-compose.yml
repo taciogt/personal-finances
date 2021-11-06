@@ -15,5 +15,10 @@ services:
       - ./core:/app/core
     ports:
       - 8000:8000
+
+  frontend:
+    build:
+      context: frontend/personal-finance
+
 #    depends_on:
 #      - db
