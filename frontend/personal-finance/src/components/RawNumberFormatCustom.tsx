@@ -1,4 +1,4 @@
-import { PropTypes, TextField } from '@material-ui/core'
+import { TextField } from '@material-ui/core'
 import { styled } from '@material-ui/core/styles'
 import React, { ChangeEventHandler, FC, FocusEventHandler, KeyboardEventHandler } from 'react'
 import NumberFormat from 'react-number-format'
