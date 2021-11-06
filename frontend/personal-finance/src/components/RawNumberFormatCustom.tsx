@@ -13,7 +13,7 @@ interface RawNumberFormatCustomProps {
 }
 
 export const RawNumberFormatCustom: FC<RawNumberFormatCustomProps> = ({value, setValue}) => {
-  const suffix = ' %';
+  const suffix = ' %'
 
   const onChangeHandler: ChangeEventHandler<HTMLInputElement> = (event) => {
     const newValue = +event.target.value.replace(suffix, '')
