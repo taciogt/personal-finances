@@ -4,8 +4,8 @@ from django.test import TestCase, Client
 from django.urls import reverse
 
 from budgets.services import repository
-from core.budgets.entities import Budget
-from core.utils.numbers import Decimal
+from backend.core.budgets.entities import Budget
+from backend.core.utils.numbers import Decimal
 
 
 class BudgetViewTests(TestCase):

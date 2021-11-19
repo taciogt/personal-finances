@@ -20,7 +20,7 @@ Frontend created with [Next + Typescript](https://github.com/vercel/next.js/tree
 ```shell
 pipenv update # do not use dev dependencies
 pipenv shell
-cd backend/personal_finances
+cd api/personal_finances
 zappa deploy/update dev
 ```
 
