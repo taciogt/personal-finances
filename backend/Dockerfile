@@ -7,5 +7,7 @@ RUN pip install pipenv
 WORKDIR /app
 
 COPY Pipfile* /app/
-RUN ls
 RUN pipenv install --deploy --system
+
+#COPY api/personal_finances .
+#COPY core .

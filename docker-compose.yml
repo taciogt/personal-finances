@@ -8,14 +8,14 @@ services:
 #      - POSTGRES_USER=postgres
 #      - POSTGRES_PASSWORD=postgres
   api:
-    build: .
+    build:
+      context: backend/
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./backend/personal_finances:/app/
-      - ./core:/app/core
+      - ./backend/api/personal_finances:/app/
+      - ./backend/core:/app/core
     ports:
-      - 8000:8000
-
+      - "8000:8000"
   frontend:
     build:
       context: frontend/personal-finance
