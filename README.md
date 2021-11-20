@@ -18,10 +18,15 @@ Frontend created with [Next + Typescript](https://github.com/vercel/next.js/tree
 ### Deployment
 
 ```shell
-pipenv update # do not use dev dependencies
-pipenv shell
+cd backend
+pipenv clean
+pipenv install
+source `pipenv --venv`/bin/activate 
+
 cd api/personal_finances
-zappa deploy/update dev
+pip install zappa==0.52.0
+zappa deploy|update dev  # updates returns an error, but works
+
 ```
 
 ## To Do's
@@ -35,3 +40,15 @@ zappa deploy/update dev
     * https://reactjs.org/docs/components-and-props.html
 * https://htmlcolorcodes.com/color-picker/
     * Base color: #FF8B00
+
+
+## Troubleshooting
+
+When [facing issues](https://github.com/pypa/pipenv/issues/4804) with `pipenv install`, I had to:
+* deactivate the virtualenv: `deactivate`
+* set the python to the desired version: `pyenv global 3.8.7`
+* install pipenv on that python version: `pip install pipenv`
+* After that, it worked 
+
+Another error:
+* [AttributeError: 'Template' object has no attribute 'add_description'](https://stackoverflow.com/questions/68391621/zappa-deploy-fails-with-attributeerror-template-object-has-no-attribute-add)

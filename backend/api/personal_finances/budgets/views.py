@@ -1,4 +1,4 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views import View
 from .services import set_budget, get_budget
 from dataclasses import asdict
@@ -15,3 +15,7 @@ class Budgets(View):
         budget = json.loads(request.body.decode())['budget']
         budget_set = set_budget(Budget(**budget))
         return JsonResponse({'budget': asdict(budget_set)})
+
+
+def health_check(request):
+    return HttpResponse('ok 3')
