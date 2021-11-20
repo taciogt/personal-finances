@@ -14,10 +14,10 @@ pipenv clean
 pipenv install
 pwd
 ls
-. `pipenv --venv` /bin/activate
+. $(pipenv --venv) /bin/activate
 
 cd ./api/personal_finances
 pip install zappa==0.52.0
-echo `pwd`
+pwd
 ls
 zappa update dev

@@ -50,4 +50,4 @@ When [facing issues](https://github.com/pypa/pipenv/issues/4804) with `pipenv in
 *   after that, it worked 
 
 Another error:
-* [AttributeError: 'Template' object has no attribute 'add_description'](https://stackoverflow.com/questions/68391621/zappa-deploy-fails-with-attributeerror-template-object-has-no-attribute-add)
+*   [AttributeError: 'Template' object has no attribute 'add_description'](https://stackoverflow.com/questions/68391621/zappa-deploy-fails-with-attributeerror-template-object-has-no-attribute-add)
