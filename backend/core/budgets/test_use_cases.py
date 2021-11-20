@@ -49,13 +49,13 @@ class UseCasesTestCase(TestCase):
 
     def test_set_budget_with_invalid_total(self):
         budget = Budget(amount=Decimal(500),
-                        essentials=.4, education=.1, goals=.1, retirement=.1, loose=.15)
+                        essentials=40, education=10, goals=10, retirement=10, loose=15)
         self.assertRaisesRegex(InvalidBudgetError, 'Total budget percentage should be 100%, but is 85%',
                                set_budget,
                                budget=budget, repository=self.repository)
 
         budget = Budget(amount=Decimal(500),
-                        essentials=.4, education=.4, goals=.1, retirement=.1, loose=.15)
+                        essentials=40, education=40, goals=10, retirement=10, loose=15)
         self.assertRaisesRegex(InvalidBudgetError, 'Total budget percentage should be 100%, but is 115%',
                                set_budget,
                                budget=budget, repository=self.repository)
