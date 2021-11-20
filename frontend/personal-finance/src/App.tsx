@@ -22,7 +22,7 @@ function App() {
   return (
     <div className="App" style={{height: '100%'}}>
       <Menu/>
-      <StyledContainer>
+      <StyledContainer maxWidth={false}>
         <SetBudgetForm/>
       </StyledContainer>
     </div>
