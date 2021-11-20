@@ -44,10 +44,10 @@ zappa deploy|update dev  # updates returns an error, but works
 ## Troubleshooting
 
 When [facing issues](https://github.com/pypa/pipenv/issues/4804) with `pipenv install`, I had to:
-  * deactivate the virtualenv: `deactivate`
-  * set the python to the desired version: `pyenv global 3.8.7`
-  * install pipenv on that python version: `pip install pipenv`
-  * After that, it worked 
+*   deactivate the virtualenv: `deactivate`
+*   set the python to the desired version: `pyenv global 3.8.7`
+*   install pipenv on that python version: `pip install pipenv`
+*   after that, it worked 
 
 Another error:
 * [AttributeError: 'Template' object has no attribute 'add_description'](https://stackoverflow.com/questions/68391621/zappa-deploy-fails-with-attributeerror-template-object-has-no-attribute-add)

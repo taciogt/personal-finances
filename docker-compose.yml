@@ -1,12 +1,12 @@
 version: "3.9"
 
 services:
-#  db:
-#    image: postgres
-#    environment:
-#      - POSTGRES_DB=postgres
-#      - POSTGRES_USER=postgres
-#      - POSTGRES_PASSWORD=postgres
+  db:
+    image: postgres:14.1
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
   api:
     build:
       context: backend/
@@ -16,9 +16,8 @@ services:
       - ./backend/core:/app/core
     ports:
       - "8000:8000"
+    depends_on:
+      - db
   frontend:
     build:
       context: frontend/personal-finance
-
-#    depends_on:
-#      - db
