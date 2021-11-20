@@ -18,4 +18,4 @@ class Budgets(View):
 
 
 def health_check(request):
-    return HttpResponse('ok 3')
+    return HttpResponse('ok')
