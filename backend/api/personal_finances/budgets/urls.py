@@ -1,8 +1,8 @@
 from django.urls import path
 
-from budgets.views import Budgets
+from budgets.views import Budgets, health_check
 
 urlpatterns = [
-    path('', Budgets.as_view(), name='budgets'),
+    path('', health_check, name='budgets'),
     path('budgets', Budgets.as_view(), name='budgets'),
 ]
