@@ -3,7 +3,7 @@ from .use_cases import create_budget, set_budget, get_budget
 from .repositories import BudgetRepositoryInMemory
 from .entities import Budget
 from .exceptions import InvalidBudgetError
-from backend.core.utils.numbers import Decimal
+from core.utils.numbers import Decimal
 
 
 class UseCasesTestCase(TestCase):
