@@ -1,12 +1,10 @@
+from typing import Type
 from unittest import TestCase
 
-from .repositories import BudgetRepository
-from ..utils.numbers import Decimal
 from .entities import Budget
+from .repositories import BudgetRepository
 from .repositories import BudgetRepositoryInMemory
-from typing import Type, TypeVar, SupportsAbs
-
-# R = TypeVar('R', bound=SupportsAbs BudgetRepository)
+from ..utils.numbers import Decimal
 
 
 class BaseRepositoryTestCase(TestCase):
