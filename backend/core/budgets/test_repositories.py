@@ -1,10 +1,11 @@
 from typing import Type
 from unittest import TestCase
 
-from .entities import Budget
-from .repositories import BudgetRepository
-from .repositories import BudgetRepositoryInMemory
-from ..utils.numbers import Decimal
+from core.budgets.entities import Budget
+from core.budgets.exceptions import NotFound
+from core.budgets.repositories import BudgetRepository
+from core.budgets.repositories import BudgetRepositoryInMemory
+from core.utils.numbers import Decimal
 
 
 class BaseRepositoryTestCase(TestCase):
@@ -12,6 +13,9 @@ class BaseRepositoryTestCase(TestCase):
 
     def setUp(self) -> None:
         self.repository = self.Repository()
+
+    def test_get_budget_non_existent_budget(self):
+        self.assertRaisesRegex(NotFound, "Budget not found", self.repository.get_budget)
 
     def test_create_and_get_budget(self):
         budget = Budget(amount=Decimal(1000),

@@ -1,12 +1,13 @@
 from budgets.models import BudgetModel
 from core.budgets.entities import Budget
+from core.budgets.exceptions import NotFound
 from core.budgets.repositories import BudgetRepository
 
 
 class DjangoBudgetRepository(BudgetRepository):
     @staticmethod
     def _entity_to_model(budget: Budget) -> BudgetModel:
-        return BudgetModel(amount=int(budget.amount * 100), essentials=budget.essentials, education=budget.education,
+        return BudgetModel(amount=float(budget.amount) * 100, essentials=budget.essentials, education=budget.education,
                            goals=budget.goals, retirement=budget.retirement, loose=budget.loose)
 
     def create_budget(self, budget: Budget) -> Budget:
@@ -20,6 +21,6 @@ class DjangoBudgetRepository(BudgetRepository):
     def get_budget(self) -> Budget:
         budget_model = BudgetModel.objects.first()
         if budget_model is None:
-            raise Exception('Not Found!')
+            raise NotFound()
 
         return budget_model.to_entity()
