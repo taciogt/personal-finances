@@ -14,15 +14,10 @@ import { green, red } from '@material-ui/core/colors'
 import { createStyles, makeStyles, styled, Theme } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import { DoneOutline, Error } from '@material-ui/icons'
-import axios from 'axios'
 import React, { ChangeEvent, FC, FormEvent, useCallback, useEffect, useState } from 'react'
+import { getBudget, saveBudget } from './api'
 import { BowlSetter } from './components/BowlSetter'
 import { Budget } from './domain/Budget'
-
-const apiClient = axios.create({
-  baseURL: 'http://localhost:8000/',
-  headers: {'Content-Type': 'application/json'}
-})
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -48,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: -12,
       marginLeft: -12,
     },
-    errorIcon:{
+    errorIcon: {
       color: red[500]
     },
   })
@@ -85,8 +80,8 @@ export const SetBudgetForm: FC = () => {
   const [error, setError] = useState(false)
 
   useEffect(() => {
-    console.log('Budget:', budget)
-  }, [budget])
+    getBudget().then(budget => setBudget(budget))
+  }, [])
 
   function changeBudgetAmountHandler(event: ChangeEvent<HTMLInputElement>) {
     setBudget(prevBudget => {
@@ -113,26 +108,20 @@ export const SetBudgetForm: FC = () => {
     event.preventDefault()
     setLoading(true)
 
-    const data = {
-      budget: {
-        ...budget
-      }
+    function setFlagAndRemove(setFlag: (b: boolean) => void) {
+      setFlag(true)
+      setTimeout(() => {
+        setFlag(false)
+      }, 3000)
     }
 
-    apiClient.put('/budgets', data).then((response) => {
-      setSuccess(true)
-      setTimeout(() => {
-        setSuccess(false)
-      }, 3000)
+    saveBudget(budget).then(() => {
+      setFlagAndRemove(setSuccess)
     }, () => {
-      setError(true)
-      setTimeout(() => {
-        setError(false)
-      }, 3000)
+      setFlagAndRemove(setError)
     }).finally(() => {
       setLoading(false)
-    }
-    )
+    })
   }
 
   const saveButtonTextVars = success || error ? hideText : defaultText
