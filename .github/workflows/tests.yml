@@ -5,7 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 12.x, 14.x, 16.x, 17.x ]
+        #        node-version: [ 12.x, 14.x, 16.x, 17.x ]
+        node-version: [ 16.x ]
     defaults:
       run:
         working-directory: frontend/personal-finance
