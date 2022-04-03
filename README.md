@@ -5,7 +5,10 @@
 
 ## Dependencies
 
+* [Pipx](https://pypa.github.io/pipx/)
 * [Pipenv](https://pipenv.pypa.io/en/latest/)
+* [Direnv](https://direnv.net/)
+* [Fnm](https://github.com/Schniz/fnm)
 
 ### Environment Set Up
 
