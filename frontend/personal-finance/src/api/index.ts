@@ -11,6 +11,7 @@ export async function getBudget(): Promise<Budget> {
   const response = await apiClient.get('/budgets')
   console.log(response)
   const budget = response.data.budget
+  console.log('budget: ', budget)
 
   return new Budget(budget.amount, budget.essentials, budget.education, budget.goals, budget.retirement, budget.loose)
 }
