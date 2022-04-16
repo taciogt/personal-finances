@@ -5,7 +5,7 @@
 
 ## Dependencies
 
-* [Pipx](https://pypa.github.io/pipx/)
+*   [Pipx](https://pypa.github.io/pipx/)
 * [Pipenv](https://pipenv.pypa.io/en/latest/)
 * [Direnv](https://direnv.net/)
 * [Fnm](https://github.com/Schniz/fnm)
@@ -51,7 +51,9 @@ zappa deploy|update dev  # updates returns an error, but works
   * https://reactjs.org/docs/components-and-props.html
 * https://htmlcolorcodes.com/color-picker/
   * Base color: #FF8B00
-    
+* https://serverlesscode.com/post/zappa-wsgi-for-python-pt-2/
+
+
 ## Troubleshooting
 
 When [facing issues](https://github.com/pypa/pipenv/issues/4804) with `pipenv install`, I had to:
