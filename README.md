@@ -18,6 +18,14 @@ pipenv sync --dev
 
 Frontend created with [Next + Typescript](https://github.com/vercel/next.js/tree/master/examples/with-typescript)
 
+#### Running outside containers:
+
+On Ubuntu:
+```shell
+sudo apt-get update
+sudo apt-get -y install postgresql  # confirm if this dependency is necessary
+```
+
 ### Deployment
 
 ```shell

@@ -1,23 +1,41 @@
 version: "3.9"
 
+x-backend: &backend
+  build:
+    context: backend/
+  command: python manage.py runserver 0.0.0.0:8000
+  environment:
+    DATABASE_HOST: db
+    DATABASE_PORT: ${DATABASE_PORT}
+    DATABASE_NAME: ${DATABASE_NAME}
+    DATABASE_USER: ${DATABASE_USER}
+    DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+  volumes:
+    - ./backend/api/personal_finances:/app/
+    - ./backend/core:/app/core
+  ports:
+    - "8000:8000"
+  depends_on:
+    db:
+      condition: service_healthy
+
 services:
   db:
-    image: postgres:14.1
+    image: postgres:14.2
     environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-  api:
-    build:
-      context: backend/
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - ./backend/api/personal_finances:/app/
-      - ./backend/core:/app/core
+      POSTGRES_DB: "${DATABASE_NAME}"
+      POSTGRES_USER: "${DATABASE_USER}"
+      POSTGRES_PASSWORD: "${DATABASE_PASSWORD}"
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "${POSTGRES_DB}", "-U", "${POSTGRES_USER}" ]
+      timeout: 45s
+      interval: 10s
+      retries: 10
     ports:
-      - "8000:8000"
-    depends_on:
-      - db
-  frontend:
-    build:
-      context: frontend/personal-finance
+      - 5432:5432
+  api:
+    <<: *backend
+    command: python manage.py runserver 0.0.0.0:8000
+  migrate:
+    <<: *backend
+    command: python manage.py migrate
