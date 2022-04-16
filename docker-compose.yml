@@ -39,3 +39,6 @@ services:
   migrate:
     <<: *backend
     command: python manage.py migrate
+  frontend:
+    build:
+      context: frontend/personal-finance
