@@ -1,5 +1,9 @@
 name: Tests
-on: push
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
 
 env:
   DATABASE_HOST: db
@@ -38,6 +42,12 @@ jobs:
         working-directory: frontend/personal-finance
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v3
+      - name: Setup Python Environment
+        uses: actions/setup-python@v3
         with:
           python-version: '3.8'
+      - name: Install dependencies
+        working-directory: backend
+        run: |
+          pip install pipenv
+          pipenv install --system --deploy --dev
