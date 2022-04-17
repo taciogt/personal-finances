@@ -4,10 +4,11 @@ import {
   CircularProgress,
   Divider,
   FormControl,
-  FormHelperText, Icon,
+  FormHelperText,
   Input,
   InputAdornment,
-  InputLabel, LinearProgress
+  InputLabel,
+  LinearProgress
 } from '@material-ui/core'
 import Button from '@material-ui/core/Button'
 import {green, red} from '@material-ui/core/colors'
