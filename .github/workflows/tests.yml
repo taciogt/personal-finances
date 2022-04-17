@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: frontend/personal-finance
+        working-directory: backend
     steps:
       - uses: actions/checkout@v2
       - name: Setup Python Environment
@@ -47,7 +47,9 @@ jobs:
         with:
           python-version: '3.8'
       - name: Install dependencies
-        working-directory: backend
         run: |
           pip install pipenv
           pipenv install --system --deploy --dev
+      - name: Type checking
+        run: |
+          python -m mypy api
