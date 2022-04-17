@@ -4,20 +4,20 @@ import {
   CircularProgress,
   Divider,
   FormControl,
-  FormHelperText,
+  FormHelperText, Icon,
   Input,
   InputAdornment,
-  InputLabel
+  InputLabel, LinearProgress
 } from '@material-ui/core'
 import Button from '@material-ui/core/Button'
-import { green, red } from '@material-ui/core/colors'
-import { createStyles, makeStyles, styled, Theme } from '@material-ui/core/styles'
+import {green, red} from '@material-ui/core/colors'
+import {createStyles, makeStyles, styled, Theme} from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-import { DoneOutline, Error } from '@material-ui/icons'
-import React, { ChangeEvent, FC, FormEvent, useCallback, useEffect, useState } from 'react'
-import { getBudget, saveBudget } from './api'
-import { BowlSetter } from './components/BowlSetter'
-import { Budget } from './domain/Budget'
+import {DoneOutline, Error} from '@material-ui/icons'
+import React, {ChangeEvent, FC, FormEvent, useCallback, useEffect, useState} from 'react'
+import {getBudget, saveBudget} from './api'
+import {BowlSetter} from './components/BowlSetter'
+import {Budget} from './domain/Budget'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -60,6 +60,12 @@ const StyledCard = styled(Card)({
   margin: 'auto'
 })
 
+const StyledLinearProgress = styled(LinearProgress)({
+  marginTop: -10,
+  marginLeft: -10,
+  marginRight:-10,
+})
+
 const StyledDivider = styled(Divider)({
   marginTop: '1em',
   marginBottom: '1em'
@@ -76,11 +82,18 @@ export const SetBudgetForm: FC = () => {
 
   const [budget, setBudget] = useState(new Budget(1000, 55, 5, 20, 10, 10))
   const [loading, setLoading] = useState(false)
+  const [isGettingBudget, setIsGettingBudget] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
 
   useEffect(() => {
-    getBudget().then(budget => setBudget(budget))
+    setIsGettingBudget(true)
+    getBudget().then(
+      (budget) => {
+        setBudget(budget)
+        setIsGettingBudget(false)
+      }
+    )
   }, [])
 
   function changeBudgetAmountHandler(event: ChangeEvent<HTMLInputElement>) {
@@ -128,37 +141,49 @@ export const SetBudgetForm: FC = () => {
 
   return (
     <StyledCard>
+      {isGettingBudget &&
+      <StyledLinearProgress>
+        <LinearProgress color="secondary"/>
+      </StyledLinearProgress>}
       <div>
         <Typography style={{marginTop: '10px'}} variant='h5'>Orçamento mensal</Typography>
         <StyledDivider/>
         <form className={classes.root} onSubmit={submitHandler}>
           <FormControl>
             <InputLabel htmlFor="total-amount-input">Valor total</InputLabel>
-            <Input id="total-amount-input" aria-describedby="total-amount-helper-text" type="number"
+            <Input
+              id="total-amount-input" aria-describedby="total-amount-helper-text" type="number"
               inputProps={{step: '.01'}}
               value={budget.amount} onChange={changeBudgetAmountHandler}
-              startAdornment={<InputAdornment position="start">R$</InputAdornment>}/>
+              startAdornment={<InputAdornment position="start">R$</InputAdornment>}
+              disabled={isGettingBudget}
+            />
             <FormHelperText id="total-amount-helper-text">Valor base para o orçamento</FormHelperText>
           </FormControl>
           <StyledDivider/>
           <StyledBox>
-            <BowlSetter title={'Essenciais'} budget={budget} bowlName={'essentials'}
+            <BowlSetter
+              title={'Essenciais'} budget={budget} bowlName={'essentials'}
               valueChangeHandler={useChangeBudgetBowlHandler('essentials')}/>
           </StyledBox>
           <StyledBox>
-            <BowlSetter title={'Educação'} budget={budget} bowlName={'education'}
+            <BowlSetter
+              title={'Educação'} budget={budget} bowlName={'education'}
               valueChangeHandler={useChangeBudgetBowlHandler('education')}/>
           </StyledBox>
           <StyledBox>
-            <BowlSetter title={'Metas'} budget={budget} bowlName={'goals'}
+            <BowlSetter
+              title={'Metas'} budget={budget} bowlName={'goals'}
               valueChangeHandler={useChangeBudgetBowlHandler('goals')}/>
           </StyledBox>
           <StyledBox>
-            <BowlSetter title={'Aposentadoria'} budget={budget} bowlName={'retirement'}
+            <BowlSetter
+              title={'Aposentadoria'} budget={budget} bowlName={'retirement'}
               valueChangeHandler={useChangeBudgetBowlHandler('retirement')}/>
           </StyledBox>
           <StyledBox>
-            <BowlSetter title={'Livre'} budget={budget} bowlName={'loose'}
+            <BowlSetter
+              title={'Livre'} budget={budget} bowlName={'loose'}
               valueChangeHandler={useChangeBudgetBowlHandler('loose')}/>
           </StyledBox>
           <StyledDivider/>
