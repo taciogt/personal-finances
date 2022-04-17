@@ -46,12 +46,12 @@ zappa deploy|update dev  # updates returns an error, but works
 * https://pre-commit.com/
 * https://pypi.org/project/isort/
 * [Zappa](https://github.com/zappa/Zappa)
-    * [Django Guide](https://romandc.com/zappa-django-guide/)
-    * https://blog.logrocket.com/zappa-and-aws-lambda-for-serverless-django/
+  * [Django Guide](https://romandc.com/zappa-django-guide/)
+  * https://blog.logrocket.com/zappa-and-aws-lambda-for-serverless-django/
 * React Tutorial:
-    * https://reactjs.org/docs/components-and-props.html
+  * https://reactjs.org/docs/components-and-props.html
 * https://htmlcolorcodes.com/color-picker/
-    * Base color: #FF8B00
+  * Base color: #FF8B00
 * https://serverlesscode.com/post/zappa-wsgi-for-python-pt-2/
 
 ## Troubleshooting
