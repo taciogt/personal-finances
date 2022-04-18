@@ -53,3 +53,6 @@ jobs:
       - name: Type checking
         run: |
           python -m mypy api
+      - name: Unit Tests
+        run: |
+          python -m unittest discover .

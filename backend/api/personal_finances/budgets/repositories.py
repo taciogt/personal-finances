@@ -1,8 +1,10 @@
+from typing import Optional
+
 from budgets.models import BudgetModel
+
 from core.budgets.entities import Budget
 from core.budgets.exceptions import NotFound
 from core.budgets.repositories import BudgetRepository
-from typing import Optional
 
 
 class DjangoBudgetRepository(BudgetRepository):
