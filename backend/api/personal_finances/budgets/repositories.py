@@ -2,6 +2,7 @@ from budgets.models import BudgetModel
 from core.budgets.entities import Budget
 from core.budgets.exceptions import NotFound
 from core.budgets.repositories import BudgetRepository
+from typing import Optional
 
 
 class DjangoBudgetRepository(BudgetRepository):
@@ -19,7 +20,7 @@ class DjangoBudgetRepository(BudgetRepository):
         return self.create_budget(budget=budget)
 
     def get_budget(self) -> Budget:
-        budget_model = BudgetModel.objects.first()
+        budget_model: Optional[BudgetModel] = BudgetModel.objects.first()
         if budget_model is None:
             raise NotFound()
 
