@@ -59,4 +59,4 @@ jobs:
       - name: Django Tests
         working-directory: backend/api/personal_finances
         run: |
-          python -m unittest discover .
+          python manage.py test
