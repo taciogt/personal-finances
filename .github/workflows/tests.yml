@@ -6,7 +6,7 @@ on:
   pull_request:
 
 env:
-  DATABASE_HOST: db
+  DATABASE_HOST: localhost
   DATABASE_PORT: 5432
   DATABASE_NAME: postgres
   DATABASE_USER: postgres
@@ -40,6 +40,18 @@ jobs:
     defaults:
       run:
         working-directory: backend
+    services:
+      database:
+        image: postgres:14.2
+        env:
+          POSTGRES_DB: $DATABASE_NAME
+          POSTGRES_USER: $DATABASE_USER
+          POSTGRES_PASSWORD: $DATABASE_PASSWORD
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - uses: actions/checkout@v2
       - name: Setup Python Environment
