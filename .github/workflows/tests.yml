@@ -44,9 +44,9 @@ jobs:
       database:
         image: postgres:14.2
         env:
-          POSTGRES_DB: $DATABASE_NAME
-          POSTGRES_USER: $DATABASE_USER
-          POSTGRES_PASSWORD: $DATABASE_PASSWORD
+          POSTGRES_DB: ${{ env.DATABASE_NAME }}
+          POSTGRES_USER: ${{ env.DATABASE_USER }}
+          POSTGRES_PASSWORD: ${{ env.DATABASE_PASSWORD }}
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
