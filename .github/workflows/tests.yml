@@ -65,12 +65,9 @@ jobs:
           pip install pipenv
           pipenv install --system --deploy --dev
       - name: Type checking
-        run: |
-          python -m mypy api
+        run: python -m mypy api
       - name: Unit Tests
-        run: |
-          python -m unittest discover .
+        run: python -m unittest discover .
       - name: Django Tests
         working-directory: backend/api/personal_finances
-        run: |
-          python manage.py test
+        run: python manage.py test
