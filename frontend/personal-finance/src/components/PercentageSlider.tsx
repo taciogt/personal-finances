@@ -1,8 +1,8 @@
-import { Grid, Slider } from '@material-ui/core'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography'
 import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 import { RawNumberFormatCustom } from './RawNumberFormatCustom'
+import Typography from "@mui/material/Typography";
+import {Grid, Slider} from "@mui/material";
+import {createStyles, makeStyles, Theme} from "@mui/material/styles";
 
 interface tPercentageSliderProps {
   title: string

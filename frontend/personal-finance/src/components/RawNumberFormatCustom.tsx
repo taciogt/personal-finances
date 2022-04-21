@@ -1,7 +1,7 @@
-import { TextField } from '@material-ui/core'
-import { styled } from '@material-ui/core/styles'
 import React, { ChangeEventHandler, FC, FocusEventHandler, KeyboardEventHandler } from 'react'
 import NumberFormat from 'react-number-format'
+import {styled} from "@mui/material/styles";
+import {TextField} from "@mui/material";
 
 const StyledNumberFormat = styled(NumberFormat)({
   width: '3em'
