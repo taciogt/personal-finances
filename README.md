@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.com/taciogt/personal-finances.svg?branch=main)](https://travis-ci.com/taciogt/personal-finances)
+# Personal Finances
+[![Tests](https://github.com/taciogt/personal-finances/actions/workflows/tests.yml/badge.svg)](https://github.com/taciogt/personal-finances/actions/workflows/tests.yml)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/9579b1aedb26409bb41b22bd317514f8)](https://app.codacy.com/gh/taciogt/personal-finances?utm_source=github.com&utm_medium=referral&utm_content=taciogt/personal-finances&utm_campaign=Badge_Grade)
 
-# Personal Finances
 
 ## Dependencies
 
