@@ -1,8 +1,12 @@
 name: Tests
-on: push
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
 
 env:
-  DATABASE_HOST: db
+  DATABASE_HOST: localhost
   DATABASE_PORT: 5432
   DATABASE_NAME: postgres
   DATABASE_USER: postgres
@@ -31,3 +35,41 @@ jobs:
         run: make build
       - name: Run frontend tests
         run: make linter
+  python-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    services:
+      database:
+        image: postgres:14.2
+        env:
+          POSTGRES_DB: ${{ env.DATABASE_NAME }}
+          POSTGRES_USER: ${{ env.DATABASE_USER }}
+          POSTGRES_PASSWORD: ${{ env.DATABASE_PASSWORD }}
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python Environment
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.8'
+      - name: Install dependencies
+        run: |
+          pip install pipenv
+          pipenv install --system --deploy --dev
+      - name: Linter
+        run: python -m flake8
+      - name: Type checking
+        run: python -m mypy api
+      - name: Unit Tests
+        run: python -m unittest discover .
+      - name: Django Tests
+        working-directory: backend/api/personal_finances
+        run: python manage.py test
