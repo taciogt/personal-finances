@@ -1,9 +1,9 @@
-import { Container } from '@material-ui/core'
-import { styled } from '@material-ui/core/styles'
 import React from 'react'
 import './App.css'
 import Menu from './Menu'
-import { SetBudgetForm } from './SetBudgetForm'
+import {SetBudgetForm} from './SetBudgetForm'
+import {Container} from "@mui/material";
+import {styled} from '@mui/material/styles'
 
 // const useStyles = makeStyles({
 //   root: {
@@ -16,6 +16,12 @@ const StyledContainer = styled(Container)({
   height: '100%',
   padding: 10,
 })
+
+// const StyledContainer = styled(Container)`
+//  background: 'linear-gradient(30deg, #FFD49F 30%, #0074FF 90%)',
+//   height: '100%',
+//   padding: 10,
+//   `
 
 
 function App() {

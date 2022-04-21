@@ -9,16 +9,17 @@ import {
   InputAdornment,
   InputLabel,
   LinearProgress
-} from '@material-ui/core'
-import Button from '@material-ui/core/Button'
-import {green, red} from '@material-ui/core/colors'
-import {createStyles, makeStyles, styled, Theme} from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography'
-import {DoneOutline, Error} from '@material-ui/icons'
+} from '@mui/material'
+import Button from '@mui/material/Button'
+import {green, red} from '@mui/material/colors'
+import {createStyles, makeStyles, styled, Theme} from '@mui/material/styles'
+import Typography from '@mui/material/Typography'
+// import {DoneOutline, Error} from '@mui/material/icons'
 import React, {ChangeEvent, FC, FormEvent, useCallback, useEffect, useState} from 'react'
 import {getBudget, saveBudget} from './api'
 import {BowlSetter} from './components/BowlSetter'
 import {Budget} from './domain/Budget'
+import {DoneOutline, Error} from "@material-ui/icons";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

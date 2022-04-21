@@ -63,6 +63,11 @@ When [facing issues](https://github.com/pypa/pipenv/issues/4804) with `pipenv in
 * install pipenv on that python version: `pip install pipenv`
 * after that, it worked
 
+### Navigate in dependency tree
+
+Find out who depends from an outdated package: `npm ls <pkg-name>`
+List outdated direct dependencies: `yarn outdated`
+
 Another error:
 
 * [AttributeError: 'Template' object has no attribute 'add_description'](https://stackoverflow.com/questions/68391621/zappa-deploy-fails-with-attributeerror-template-object-has-no-attribute-add)

@@ -1,8 +1,7 @@
-import { Grid } from '@material-ui/core'
-import Typography from '@material-ui/core/Typography'
 import React, { FC } from 'react'
 import { Budget, BudgetBowls, centsToBRL, getBudgetBowlAmount } from '../domain/Budget'
 import { PercentageSlider } from './PercentageSlider'
+import {Grid, Typography} from "@mui/material";
 
 interface bowlSetterProps {
     title: string
