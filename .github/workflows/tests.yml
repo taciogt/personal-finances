@@ -64,6 +64,8 @@ jobs:
         run: |
           pip install pipenv
           pipenv install --system --deploy --dev
+      - name: Linter
+        run: python -m flake8
       - name: Type checking
         run: python -m mypy api
       - name: Unit Tests
