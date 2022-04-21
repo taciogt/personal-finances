@@ -5,14 +5,16 @@ import {createStyles, makeStyles, Theme, useTheme} from '@material-ui/core/style
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import MenuIcon from '@material-ui/icons/Menu'
-import React, {useState} from 'react'
-import {Divider, Drawer, List, ListItem, ListItemIcon, ListItemText} from '@material-ui/core'
+import React, {FC, ReactElement, useState} from 'react'
+import {Divider, Drawer, List, ListItem, ListItemIcon, ListItemText, Menu} from '@material-ui/core'
 import clsx from 'clsx'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import InboxIcon from '@material-ui/icons/MoveToInbox'
 import MailIcon from '@material-ui/icons/Mail'
 import AssessmentIcon from '@material-ui/icons/Assessment'
+import {AccountBalance, AccountBalanceWallet, SvgIconComponent} from '@material-ui/icons'
+import {render} from 'react-dom'
 
 
 const drawerWidth = 240
@@ -62,11 +64,26 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-export default function Menu() {
+export class MenuItem {
+
+  constructor(
+    public icon: ReactElement<SvgIconComponent>,
+    public name: string,
+    public selected: boolean = false
+  ) {
+  }
+}
+
+interface menuProps {
+  items: Array<MenuItem>
+  handleMenuClick: (index: number) => void
+}
+
+const CustomMenu: FC<menuProps> = ({items, handleMenuClick}) => {
   const classes = useStyles()
   const theme = useTheme()
 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true)
 
   const handleDrawerOpen = () => {
     setOpen(true)
@@ -113,28 +130,16 @@ export default function Menu() {
         </div>
         <Divider/>
         <List>
-          <ListItem button selected={true}>
-            <ListItemIcon><AssessmentIcon/></ListItemIcon>
-            <ListItemText primary="Orçamento Mensal"/>
-          </ListItem>
-
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
-              <ListItemText primary={text}/>
+          {items.map((item, index) =>
+            <ListItem button selected={item.selected} key={index} onClick={() => handleMenuClick(index)}>
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.name}/>
             </ListItem>
-          ))}
-        </List>
-        <Divider/>
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}</ListItemIcon>
-              <ListItemText primary={text}/>
-            </ListItem>
-          ))}
+          )}
         </List>
       </Drawer>
     </div>
   )
 }
+
+export default CustomMenu

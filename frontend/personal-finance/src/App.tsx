@@ -1,15 +1,10 @@
-import { Container } from '@material-ui/core'
-import { styled } from '@material-ui/core/styles'
-import React from 'react'
+import {Container} from '@material-ui/core'
+import {styled} from '@material-ui/core/styles'
+import React, {useState} from 'react'
 import './App.css'
-import Menu from './Menu'
-import { SetBudgetForm } from './SetBudgetForm'
-
-// const useStyles = makeStyles({
-//   root: {
-//     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-//   },
-// })
+import Menu, {MenuItem} from './Menu'
+import {SetBudgetForm} from './SetBudgetForm'
+import {AccountBalance, AccountBalanceWallet, BlurOn} from '@material-ui/icons'
 
 const StyledContainer = styled(Container)({
   background: 'linear-gradient(30deg, #FFD49F 30%, #0074FF 90%)',
@@ -19,9 +14,21 @@ const StyledContainer = styled(Container)({
 
 
 function App() {
+  const [menuItems, setMenuItems] = useState([
+    new MenuItem(<AccountBalanceWallet/>, 'Orçamento Mensal', true),
+    new MenuItem(<AccountBalance/>, 'Ativos Financeiros')
+  ])
+
+  const handleMenuClick = (index: number) => {
+    setMenuItems(menuItems.map((item, i) => {
+      item.selected = i === index
+      return item
+    }))
+  }
+
   return (
     <div className="App" style={{height: '100%'}}>
-      <Menu/>
+      <Menu items={menuItems} handleMenuClick={handleMenuClick}/>
       <StyledContainer maxWidth={false}>
         <SetBudgetForm/>
       </StyledContainer>
