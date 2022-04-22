@@ -4,7 +4,7 @@ import React, {ReactElement, useState} from 'react'
 import './App.css'
 import Menu, {MenuItem} from './Menu'
 import {SetBudgetForm} from './SetBudgetForm'
-import {AccountBalance, AccountBalanceWallet, BlurOn, SvgIconComponent} from '@material-ui/icons'
+import {AccountBalance, AccountBalanceWallet} from '@material-ui/icons'
 
 const StyledContainer = styled(Container)({
   background: 'linear-gradient(30deg, #FFD49F 30%, #0074FF 90%)',
