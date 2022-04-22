@@ -17,8 +17,8 @@ const drawerWidth = 240
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      flexGrow: 1,
       height: '100%',
+      display: 'flex',
     },
     appBar: {
       zIndex: theme.zIndex.drawer + 1,
@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     title: {
       flexGrow: 1,
+      textAlign: 'left',
     },
     hide: {
       display: 'none',
@@ -77,7 +78,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       flexGrow: 1,
-      height: '100%'
+      // height: '100%',
+      // width: '100%',
+      // marginLeft: theme.spacing(7),
+      // alignContent: 'center'
+      // padding: theme.spacing(3),
     },
   }),
 )
@@ -100,7 +105,7 @@ interface MenuProps {
 const CustomMenu: FC<MenuProps> = ({items, handleMenuClick, children}: MenuProps) => {
   const classes = useStyles()
 
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
 
   const handleDrawerOpen = () => {
     setOpen(true)
@@ -112,7 +117,10 @@ const CustomMenu: FC<MenuProps> = ({items, handleMenuClick, children}: MenuProps
 
   return (
     <div className={classes.root}>
-      <AppBar position="fixed" className={clsx(classes.appBar, {[classes.appBarShift]: open})}>
+      <AppBar
+        position="fixed"
+        className={clsx(classes.appBar,
+          {[classes.appBarShift]: open})}>
         <Toolbar>
           <IconButton
             edge="start" className={clsx(classes.menuButton, {[classes.hide]: open})}
@@ -159,7 +167,7 @@ const CustomMenu: FC<MenuProps> = ({items, handleMenuClick, children}: MenuProps
         </List>
       </Drawer>
       <main className={classes.content}>
-        <div className={classes.toolbar} />
+        <div className={classes.toolbar}/>
         {children}
       </main>
     </div>

@@ -3,8 +3,9 @@ import {styled} from '@material-ui/core/styles'
 import React, {ReactElement, useState} from 'react'
 import './App.css'
 import Menu, {MenuItem} from './Menu'
-import {SetBudgetForm} from './SetBudgetForm'
+import {SetBudgetForm} from './pages/SetBudgetForm'
 import {AccountBalance, AccountBalanceWallet} from '@material-ui/icons'
+import {AssetsList} from './pages/AssetsList'
 
 const theme = createMuiTheme({
   palette: {
@@ -14,18 +15,22 @@ const theme = createMuiTheme({
     secondary: {
       main: '#FFD49F'
     },
-
   }
 }, {
-  background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+  // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
 })
 
 
 const StyledContainer = styled(Container)(({theme}) =>
   ({
-    background: `linear-gradient(30deg, ${theme.palette.secondary.main} 30%, ${theme.palette.primary.main} 90%)`,
+    // background: `linear-gradient(30deg, ${theme.palette.secondary.main} 30%, ${theme.palette.primary.main} 90%)`,
+    background: `${theme.palette.secondary.main}66`,
+    opacity: 1,
     height: '100%',
-    padding: 10,
+    width: '100%',
+    padding: theme.spacing(2, 1)
+    // maxWidth: 'unset',
+    // padding: 10,
   })
 )
 
@@ -41,8 +46,8 @@ class MenuPageItem extends MenuItem {
 
 function App(): ReactElement {
   const [menuItems, setMenuItems] = useState([
-    new MenuPageItem(<AccountBalanceWallet/>, 'Orçamento Mensal', true).setPage(<SetBudgetForm/>),
-    new MenuPageItem(<AccountBalance/>, 'Ativos Financeiros')
+    new MenuPageItem(<AccountBalanceWallet/>, 'Orçamento Mensal').setPage(<SetBudgetForm/>),
+    new MenuPageItem(<AccountBalance/>, 'Ativos Financeiros', true).setPage(<AssetsList/>)
   ])
 
   const handleMenuClick = (index: number) => {
