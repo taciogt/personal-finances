@@ -6,15 +6,11 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import MenuIcon from '@material-ui/icons/Menu'
 import React, {FC, ReactElement, useState} from 'react'
-import {Divider, Drawer, List, ListItem, ListItemIcon, ListItemText, Menu} from '@material-ui/core'
+import {Divider, Drawer, List, ListItem, ListItemIcon, ListItemText} from '@material-ui/core'
 import clsx from 'clsx'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
-import InboxIcon from '@material-ui/icons/MoveToInbox'
-import MailIcon from '@material-ui/icons/Mail'
-import AssessmentIcon from '@material-ui/icons/Assessment'
-import {AccountBalance, AccountBalanceWallet, SvgIconComponent} from '@material-ui/icons'
-import {render} from 'react-dom'
+import {SvgIconComponent} from '@material-ui/icons'
 
 
 const drawerWidth = 240
@@ -65,7 +61,6 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export class MenuItem {
-
   constructor(
     public icon: ReactElement<SvgIconComponent>,
     public name: string,
