@@ -18,12 +18,31 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
+      height: '100%',
+    },
+    appBar: {
+      zIndex: theme.zIndex.drawer + 1,
+      transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+    },
+    appBarShift: {
+      marginLeft: drawerWidth,
+      width: `calc(100% - ${drawerWidth}px)`,
+      transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
     },
     menuButton: {
-      marginRight: theme.spacing(2),
+      marginRight: 36,
     },
     title: {
       flexGrow: 1,
+    },
+    hide: {
+      display: 'none',
     },
     drawer: {
       width: drawerWidth,
@@ -56,6 +75,10 @@ const useStyles = makeStyles((theme: Theme) =>
       // necessary for content to be below app bar
       ...theme.mixins.toolbar,
     },
+    content: {
+      flexGrow: 1,
+      height: '100%'
+    },
   }),
 )
 
@@ -71,9 +94,10 @@ export class MenuItem {
 interface MenuProps {
   items: Array<MenuItem>
   handleMenuClick: (index: number) => void
+  children: ReactElement
 }
 
-const CustomMenu: FC<MenuProps> = ({items, handleMenuClick}: MenuProps) => {
+const CustomMenu: FC<MenuProps> = ({items, handleMenuClick, children}: MenuProps) => {
   const classes = useStyles()
 
   const [open, setOpen] = useState(true)
@@ -88,9 +112,12 @@ const CustomMenu: FC<MenuProps> = ({items, handleMenuClick}: MenuProps) => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="fixed" className={clsx(classes.appBar, {[classes.appBarShift]: open})}>
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <IconButton
+            edge="start" className={clsx(classes.menuButton, {[classes.hide]: open})}
+            color="inherit" aria-label="menu"
+            onClick={handleDrawerOpen}>
             <MenuIcon/>
           </IconButton>
           <Typography variant="h6" className={classes.title}>
@@ -131,6 +158,10 @@ const CustomMenu: FC<MenuProps> = ({items, handleMenuClick}: MenuProps) => {
           )}
         </List>
       </Drawer>
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        {children}
+      </main>
     </div>
   )
 }

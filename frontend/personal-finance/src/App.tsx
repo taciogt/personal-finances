@@ -55,10 +55,11 @@ function App(): ReactElement {
   return (
     <div className="App" style={{height: '100%'}}>
       <MuiThemeProvider theme={theme}>
-        <Menu items={menuItems} handleMenuClick={handleMenuClick}/>
-        <StyledContainer maxWidth={false}>
-          {menuItems.find(item => item.selected)?.page || <></>}
-        </StyledContainer>
+        <Menu items={menuItems} handleMenuClick={handleMenuClick}>
+          <StyledContainer>
+            {menuItems.find(item => item.selected)?.page || <></>}
+          </StyledContainer>
+        </Menu>
       </MuiThemeProvider>
     </div>
   )
