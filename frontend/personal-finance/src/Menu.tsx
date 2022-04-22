@@ -1,7 +1,7 @@
 import AppBar from '@material-ui/core/AppBar'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
-import {createStyles, makeStyles, Theme, useTheme} from '@material-ui/core/styles'
+import {createStyles, makeStyles, Theme} from '@material-ui/core/styles'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import MenuIcon from '@material-ui/icons/Menu'
@@ -11,7 +11,6 @@ import clsx from 'clsx'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import {SvgIconComponent} from '@material-ui/icons'
-
 
 const drawerWidth = 240
 
@@ -69,14 +68,13 @@ export class MenuItem {
   }
 }
 
-interface menuProps {
+interface MenuProps {
   items: Array<MenuItem>
   handleMenuClick: (index: number) => void
 }
 
-const CustomMenu: FC<menuProps> = ({items, handleMenuClick}) => {
+const CustomMenu: FC<MenuProps> = ({items, handleMenuClick}: MenuProps) => {
   const classes = useStyles()
-  const theme = useTheme()
 
   const [open, setOpen] = useState(true)
 
