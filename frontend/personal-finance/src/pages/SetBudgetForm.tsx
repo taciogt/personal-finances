@@ -57,7 +57,6 @@ const hideText = {
 
 const StyledCard = styled(Card)({
   padding: 10,
-  // maxWidth: '50%',
   margin: 'auto'
 })
 

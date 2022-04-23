@@ -9,7 +9,6 @@ import React, {FC, ReactElement, useState} from 'react'
 import {Divider, Drawer, List, ListItem, ListItemIcon, ListItemText} from '@material-ui/core'
 import clsx from 'clsx'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
-import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import {SvgIconComponent} from '@material-ui/icons'
 
 const drawerWidth = 240
