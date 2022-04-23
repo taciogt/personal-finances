@@ -17,7 +17,6 @@ const theme = createMuiTheme({
     },
   }
 }, {
-  // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
 })
 
 
@@ -29,8 +28,6 @@ const StyledContainer = styled(Container)(({theme}) =>
     height: '100%',
     width: '100%',
     padding: theme.spacing(2, 1)
-    // maxWidth: 'unset',
-    // padding: 10,
   })
 )
 

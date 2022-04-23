@@ -78,11 +78,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       flexGrow: 1,
-      // height: '100%',
-      // width: '100%',
-      // marginLeft: theme.spacing(7),
-      // alignContent: 'center'
-      // padding: theme.spacing(3),
     },
   }),
 )
@@ -148,10 +143,7 @@ const CustomMenu: FC<MenuProps> = ({items, handleMenuClick, children}: MenuProps
         }}
       >
         <div className={classes.toolbar}>
-          {!open ?
-            <IconButton onClick={handleDrawerOpen}>
-              <ChevronRightIcon/>
-            </IconButton> :
+          {open &&
             <IconButton onClick={handleDrawerClose}>
               <ChevronLeftIcon/>
             </IconButton>}
