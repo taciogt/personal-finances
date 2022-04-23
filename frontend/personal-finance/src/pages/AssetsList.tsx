@@ -14,7 +14,7 @@ import {
 import {PageContainer} from '../components/Surfaces'
 import {makeStyles, styled} from '@material-ui/core/styles'
 import {centsToBRL} from '../domain/Budget'
-import Button from '@material-ui/core/Button'
+import {CreateAsset} from '../components/CreateAsset'
 
 const useStyles = makeStyles({
   table: {
@@ -89,7 +89,7 @@ export const AssetsList: FC = () => {
           </Table>
         </TableContainer>
         <Box marginTop={2} flexDirection='row-reverse' width='100%' display='flex'>
-          <Button color='primary' variant='contained'>+ Novo Ativo</Button>
+          <CreateAsset/>
         </Box>
       </PageContainer>
     </Container>
