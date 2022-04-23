@@ -1,6 +1,7 @@
 import React, {FC} from 'react'
 import {
   Box,
+  Container,
   Divider,
   Table,
   TableBody,
@@ -13,6 +14,7 @@ import {
 import {PageContainer} from '../components/Surfaces'
 import {makeStyles, styled} from '@material-ui/core/styles'
 import {centsToBRL} from '../domain/Budget'
+import Button from '@material-ui/core/Button'
 
 const useStyles = makeStyles({
   table: {
@@ -61,29 +63,35 @@ export const AssetsList: FC = () => {
   const classes = useStyles()
 
   return (
-    <PageContainer elevation={3}>
-      <Typography variant='h5'>Ativos Financeiros</Typography>
-      <StyledBox><Divider/></StyledBox>
-      <TableContainer>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <TableCell>Nome</TableCell>
-              <TableCell>Grupo</TableCell>
-              <TableCell>Valor Atual</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {assets.map(asset =>
-              <TableRow key={asset.name}>
-                <TableCell>{asset.name}</TableCell>
-                <TableCell>{asset.group.name}</TableCell>
-                <TableCell>{centsToBRL(asset.currentValue)}</TableCell>
+    <Container maxWidth='md'>
+      <PageContainer elevation={3}>
+        <Typography variant='h5'>Ativos Financeiros</Typography>
+        <StyledBox><Divider/></StyledBox>
+
+        <TableContainer>
+          <Table className={classes.table}>
+            <TableHead>
+              <TableRow>
+                <TableCell>Nome</TableCell>
+                <TableCell>Grupo</TableCell>
+                <TableCell>Valor Atual</TableCell>
               </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </PageContainer>
+            </TableHead>
+            <TableBody>
+              {assets.map(asset =>
+                <TableRow key={asset.name}>
+                  <TableCell>{asset.name}</TableCell>
+                  <TableCell>{asset.group.name}</TableCell>
+                  <TableCell>{centsToBRL(asset.currentValue)}</TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <Box marginTop={2} flexDirection='row-reverse' width='100%' display='flex'>
+          <Button color='primary' variant='contained'>+ Novo Ativo</Button>
+        </Box>
+      </PageContainer>
+    </Container>
   )
 }

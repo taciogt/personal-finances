@@ -26,8 +26,9 @@ const StyledContainer = styled(Container)(({theme}) =>
     background: `${theme.palette.secondary.main}66`,
     opacity: 1,
     height: '100%',
-    width: '100%',
-    padding: theme.spacing(2, 1)
+    // width: '100%',
+    padding: theme.spacing(2, 1),
+    maxWidth: 'unset'
   })
 )
 

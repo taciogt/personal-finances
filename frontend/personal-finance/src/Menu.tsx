@@ -77,6 +77,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       flexGrow: 1,
+      width: '100%',
     },
   }),
 )
