@@ -16,9 +16,9 @@ import {createStyles, makeStyles, styled, Theme} from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import {DoneOutline, Error} from '@material-ui/icons'
 import React, {ChangeEvent, FC, FormEvent, useCallback, useEffect, useState} from 'react'
-import {getBudget, saveBudget} from './api'
-import {BowlSetter} from './components/BowlSetter'
-import {Budget} from './domain/Budget'
+import {getBudget, saveBudget} from '../api'
+import {BowlSetter} from '../components/BowlSetter'
+import {Budget} from '../domain/Budget'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -57,7 +57,6 @@ const hideText = {
 
 const StyledCard = styled(Card)({
   padding: 10,
-  maxWidth: '50%',
   margin: 'auto'
 })
 
