@@ -1,4 +1,4 @@
-import React, {FC} from 'react'
+import React, {FC, useState} from 'react'
 import {
   Box,
   Container,
@@ -15,28 +15,13 @@ import {PageContainer} from '../components/Surfaces'
 import {makeStyles, styled} from '@material-ui/core/styles'
 import {centsToBRL} from '../domain/Budget'
 import {CreateAsset} from '../components/CreateAsset'
+import {Asset, AssetGroup} from '../domain/Assets'
 
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
 })
-
-class AssetGroup {
-  constructor(
-    public name: string
-  ) {
-  }
-}
-
-class Asset {
-  constructor(
-    public name: string,
-    public currentValue: number,
-    public group: AssetGroup
-  ) {
-  }
-}
 
 const assetGroups = [
   new AssetGroup('Pós-fixado'),
@@ -48,7 +33,7 @@ const assetGroups = [
 
 ]
 
-const assets = [
+const defaultAssets = [
   new Asset('Poupanca', 10000, assetGroups[0]),
   new Asset('Tesouro Selic', 250000, assetGroups[0]),
   new Asset('Fundo Multimercado', 2000, assetGroups[3]),
@@ -61,6 +46,12 @@ const StyledBox = styled(Box)(({theme}) => ({
 
 export const AssetsList: FC = () => {
   const classes = useStyles()
+
+  const [assets, setAssets] = useState(defaultAssets)
+
+  const createAssetHandler = (newAsset: Asset) => {
+    setAssets([...assets, newAsset])
+  }
 
   return (
     <Container maxWidth='md'>
@@ -89,7 +80,7 @@ export const AssetsList: FC = () => {
           </Table>
         </TableContainer>
         <Box marginTop={2} flexDirection='row-reverse' width='100%' display='flex'>
-          <CreateAsset/>
+          <CreateAsset onSave={createAssetHandler} assetGroups={assetGroups}/>
         </Box>
       </PageContainer>
     </Container>
