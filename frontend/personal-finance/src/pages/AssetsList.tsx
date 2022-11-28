@@ -1,6 +1,7 @@
-import React, {FC} from 'react'
+import React, {FC, useState} from 'react'
 import {
   Box,
+  Container,
   Divider,
   Table,
   TableBody,
@@ -13,6 +14,8 @@ import {
 import {PageContainer} from '../components/Surfaces'
 import {makeStyles, styled} from '@material-ui/core/styles'
 import {centsToBRL} from '../domain/Budget'
+import {CreateAsset} from '../components/CreateAsset'
+import {Asset, AssetGroup} from '../domain/Assets'
 
 const useStyles = makeStyles({
   table: {
@@ -20,33 +23,17 @@ const useStyles = makeStyles({
   },
 })
 
-class AssetGroup {
-  constructor(
-    public name: string
-  ) {
-  }
-}
-
-class Asset {
-  constructor(
-    public name: string,
-    public currentValue: number,
-    public group: AssetGroup
-  ) {
-  }
-}
-
 const assetGroups = [
-  new AssetGroup('Pós-fixado'),
-  new AssetGroup('Pré-fixado'),
-  new AssetGroup('Inflação'),
-  new AssetGroup('Multimercado'),
-  new AssetGroup('Renda Variável'),
-  new AssetGroup('internacional'),
+  new AssetGroup(1, 'Pós-fixado'),
+  new AssetGroup(2, 'Pré-fixado'),
+  new AssetGroup(3, 'Inflação'),
+  new AssetGroup(4, 'Multimercado'),
+  new AssetGroup(5, 'Renda Variável'),
+  new AssetGroup(6, 'internacional'),
 
 ]
 
-const assets = [
+const defaultAssets = [
   new Asset('Poupanca', 10000, assetGroups[0]),
   new Asset('Tesouro Selic', 250000, assetGroups[0]),
   new Asset('Fundo Multimercado', 2000, assetGroups[3]),
@@ -60,30 +47,42 @@ const StyledBox = styled(Box)(({theme}) => ({
 export const AssetsList: FC = () => {
   const classes = useStyles()
 
+  const [assets, setAssets] = useState(defaultAssets)
+
+  const createAssetHandler = (newAsset: Asset) => {
+    setAssets([...assets, newAsset])
+  }
+
   return (
-    <PageContainer elevation={3}>
-      <Typography variant='h5'>Ativos Financeiros</Typography>
-      <StyledBox><Divider/></StyledBox>
-      <TableContainer>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <TableCell>Nome</TableCell>
-              <TableCell>Grupo</TableCell>
-              <TableCell>Valor Atual</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {assets.map(asset =>
-              <TableRow key={asset.name}>
-                <TableCell>{asset.name}</TableCell>
-                <TableCell>{asset.group.name}</TableCell>
-                <TableCell>{centsToBRL(asset.currentValue)}</TableCell>
+    <Container maxWidth='md'>
+      <PageContainer elevation={3}>
+        <Typography variant='h5'>Ativos Financeiros</Typography>
+        <StyledBox><Divider/></StyledBox>
+
+        <TableContainer>
+          <Table className={classes.table}>
+            <TableHead>
+              <TableRow>
+                <TableCell>Nome</TableCell>
+                <TableCell>Grupo</TableCell>
+                <TableCell>Valor Atual</TableCell>
               </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </PageContainer>
+            </TableHead>
+            <TableBody>
+              {assets.map(asset =>
+                <TableRow key={asset.name}>
+                  <TableCell>{asset.name}</TableCell>
+                  <TableCell>{asset.group.name}</TableCell>
+                  <TableCell>{centsToBRL(asset.currentValue)}</TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <Box marginTop={2} flexDirection='row-reverse' width='100%' display='flex'>
+          <CreateAsset onSave={createAssetHandler} assetGroups={assetGroups}/>
+        </Box>
+      </PageContainer>
+    </Container>
   )
 }
