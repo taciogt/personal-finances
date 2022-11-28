@@ -56,15 +56,20 @@ export const CreateAsset: FC<CreateAssetProps> = ({assetGroups, onSave}) => {
   const [assetName, setAssetName] = useState('')
   const [assetValue, setAssetValue] = useState(0)
 
-  const [age, setAge] = useState('')
+  const [assetGroup, setAssetGroup] = useState<AssetGroup | undefined>(undefined)
   const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
-    setAge(event.target.value as string)
+    setAssetGroup(assetGroups.find(group => group.id === event.target.value))
   }
 
   const saveButtonHandler = () => {
-    onSave(new Asset(assetName, assetValue, assetGroups[0]))
+    if (assetGroup === undefined) {
+      console.log('failed to set asset group')
+      return
+    }
+    onSave(new Asset(assetName, assetValue, assetGroup))
     setOpen(false)
   }
+
 
   return <>
     <Button color='primary' variant='contained' onClick={() => setOpen(true)}>
@@ -80,22 +85,24 @@ export const CreateAsset: FC<CreateAssetProps> = ({assetGroups, onSave}) => {
               Novo Ativo
             </Typography>
           </Box>
-          <FormControl className={classes.formControl}>
+          <FormControl className={classes.formControl} onSubmit={event => console.log('on submit callback')}>
             <Box width="40%">
               <TextField required label='Nome do ativo' onChange={event => setAssetName(event.target.value)}/>
               <TextField required label='Valor do ativo' onChange={event => setAssetValue(+event.target.value)}/>
             </Box>
-            <Select label='Classe de Ativo' value={age} onChange={handleChange}>
-              {assetGroups.map(assetGroup =>
-                <MenuItem key={assetGroup.name} value={assetGroup.name}>{assetGroup.name}</MenuItem>
-              )}
-            </Select>
+            <Box marginTop={2}>
+              <Select label='Classe de Ativo' value={assetGroup?.id} onChange={handleChange}>
+                {assetGroups.map(assetGroup =>
+                  <MenuItem key={assetGroup.id} value={assetGroup.id}>{assetGroup.name}</MenuItem>
+                )}
+              </Select>
+            </Box>
+            <Box marginTop={1} display='flex' flexDirection='column' alignItems='center'>
+              <Button color='primary' variant='contained' onClick={saveButtonHandler} type="submit">
+                <Typography variant='button'>Salvar</Typography>
+              </Button>
+            </Box>
           </FormControl>
-          <Box marginTop={1} display='flex' flexDirection='column' alignItems='center'>
-            <Button color='primary' variant='contained' onClick={saveButtonHandler}>
-              <Typography variant='button'>Salvar</Typography>
-            </Button>
-          </Box>
         </Box>
       </StyledCard>
     </StyledModal>

@@ -24,12 +24,12 @@ const useStyles = makeStyles({
 })
 
 const assetGroups = [
-  new AssetGroup('Pós-fixado'),
-  new AssetGroup('Pré-fixado'),
-  new AssetGroup('Inflação'),
-  new AssetGroup('Multimercado'),
-  new AssetGroup('Renda Variável'),
-  new AssetGroup('internacional'),
+  new AssetGroup(1, 'Pós-fixado'),
+  new AssetGroup(2, 'Pré-fixado'),
+  new AssetGroup(3, 'Inflação'),
+  new AssetGroup(4, 'Multimercado'),
+  new AssetGroup(5, 'Renda Variável'),
+  new AssetGroup(6, 'internacional'),
 
 ]
 

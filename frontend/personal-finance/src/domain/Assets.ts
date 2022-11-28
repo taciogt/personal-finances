@@ -1,5 +1,6 @@
 export class AssetGroup {
   constructor(
+    public id: number,
     public name: string
   ) {
   }
