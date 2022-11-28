@@ -8,7 +8,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     formControl: {
       margin: theme.spacing(1),
-      // minWidth: 120,
     },
     selectEmpty: {
       marginTop: theme.spacing(2),
@@ -19,14 +18,6 @@ const useStyles = makeStyles((theme: Theme) =>
 const StyledModal = styled(Modal)(({theme}) => ({
   top: '50%',
   left: '50%',
-  // transform: 'translate(-50%, -50%)',
-  // position: 'absolute',
-  // width: 600,
-  // // height: 600,
-  // backgroundColor: theme.palette.background.paper,
-  // border: '2px solid #000',
-  // boxShadow: theme.shadows[5],
-  // // padding: theme.spacing(2, 4, 3),
 }))
 
 const StyledCard = styled(Paper)(({theme}) => ({
@@ -35,12 +26,7 @@ const StyledCard = styled(Paper)(({theme}) => ({
   transform: 'translate(-50%, -50%)',
   position: 'absolute',
   minWidth: 400,
-  // height: 600,
-  // backgroundColor: theme.palette.background.paper,
-  // border: '2px solid #000',
-  // boxShadow: theme.shadows[5],
   padding: theme.spacing(2),
-  // alignContent: 'center'
 }))
 
 
