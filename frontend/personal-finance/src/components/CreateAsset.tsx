@@ -71,7 +71,7 @@ export const CreateAsset: FC<CreateAssetProps> = ({assetGroups, onSave}) => {
               Novo Ativo
             </Typography>
           </Box>
-          <FormControl className={classes.formControl} onSubmit={event => console.log('on submit callback')}>
+          <FormControl className={classes.formControl}>
             <Box width="40%">
               <TextField required label='Nome do ativo' onChange={event => setAssetName(event.target.value)}/>
               <TextField required label='Valor do ativo' onChange={event => setAssetValue(+event.target.value)}/>
